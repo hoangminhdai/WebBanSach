@@ -137,6 +137,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\AdminSite\AdminSiteAreaRegistration.cs" />
+    <Compile Include="Areas\AdminSite\Controllers\AdminDangNhapController.cs" />
+    <Compile Include="Areas\AdminSite\Controllers\AdminQuanLyKhachHangController.cs" />
+    <Compile Include="Areas\AdminSite\Controllers\AdminQuanLySachController.cs" />
+    <Compile Include="Areas\AdminSite\Controllers\AdminTrangChuController.cs" />
     <Compile Include="Controllers\ChiTietSachController.cs" />
     <Compile Include="Controllers\DangKiController.cs" />
     <Compile Include="Controllers\DangNhapController.cs" />
@@ -3471,6 +3475,15 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Areas\AdminSite\Views\Shared\AdminLayout.cshtml" />
+    <Content Include="Areas\AdminSite\Views\AdminDangNhap\Index.cshtml" />
+    <Content Include="Areas\AdminSite\Views\AdminQuanLyKhachHang\TatCaKhachHang.cshtml" />
+    <Content Include="Areas\AdminSite\Views\AdminQuanLyKhachHang\ThemKhachHang.cshtml" />
+    <Content Include="Areas\AdminSite\Views\AdminQuanLyKhachHang\SuaKhachHang.cshtml" />
+    <Content Include="Areas\AdminSite\Views\AdminQuanLySach\TatCaSach.cshtml" />
+    <Content Include="Areas\AdminSite\Views\AdminQuanLySach\ThemSach.cshtml" />
+    <Content Include="Areas\AdminSite\Views\AdminQuanLySach\SuaSach.cshtml" />
+    <Content Include="Areas\AdminSite\Views\AdminTrangChu\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -3519,9 +3532,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\AdminSite\Controllers\" />
     <Folder Include="Areas\AdminSite\Models\" />
-    <Folder Include="Areas\AdminSite\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
