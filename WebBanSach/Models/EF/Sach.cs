@@ -21,6 +21,8 @@ namespace WebBanSach.Models.EF
         [StringLength(200)]
         public string Tensach { get; set; }
 
+        public int? Giakm { get; set; }
+        //public string GiaKM { get; set; }
         public int? Dongia { get; set; }
 
         [StringLength(10)]
