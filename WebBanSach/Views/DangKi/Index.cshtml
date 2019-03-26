@@ -40,27 +40,27 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Tạo tài khoản mới!</h1>
                             </div>
-                            <form class="user">
+                            <form class="user" method="post" action="@Url.Action("postSignUp","DangKi")">
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="exampleName" placeholder="Họ và tên">
+                                    <input type="text" class="form-control form-control-user" name="HoTen" placeholder="Họ và tên">
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                                    <input type="email" class="form-control form-control-user" name="Email"
                                            placeholder="Email">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user" id="exampleInputPassword"
-                                               placeholder="Mật khẩu">
+                                        <input type="password" class="form-control form-control-user" 
+                                               placeholder="Mật khẩu" name="MatKhau">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user" id="exampleRepeatPassword"
+                                        <input type="password" class="form-control form-control-user" name="NhapLaiMatKhau"
                                                placeholder="Xác nhận mật khẩu">
                                     </div>
                                 </div>
-                                <a href="/DangNhap/Index" class="btn btn-primary btn-user btn-block">
+                                <button type="submit" class="btn btn-primary btn-user btn-block">
                                     Tạo tài khoản
-                                </a>
+                                </button>
                                 <hr>
                                 <a href="/Home/Index" class="btn btn-google btn-user btn-block">
                                     <i class="fab fa-google fa-fw"></i> Tạo tài khoản với Google
