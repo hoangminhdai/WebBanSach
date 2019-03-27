@@ -492,11 +492,14 @@ body {
 	font-size: 1.5em;
 	color: #999999;	
 }
-.price h3{
-	font-size: 1.5em;
-	color: #999999;
-	margin-left: 5px;
-}
+    .price h3 {
+        font-size: 1.5em;
+        color: #999999;
+        margin-left: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 .price h4 .details{
 	display: inline-block;
 	font-size: 1.1em;
