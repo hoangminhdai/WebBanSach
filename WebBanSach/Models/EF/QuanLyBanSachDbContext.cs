@@ -8,7 +8,7 @@ namespace WebBanSach.Models.EF
     public partial class QuanLyBanSachDbContext : DbContext
     {
         public QuanLyBanSachDbContext()
-            : base("name=QuanLyBanSachDbContext")
+            : base("name=QuanLyBanSachDbContext1")
         {
         }
 
