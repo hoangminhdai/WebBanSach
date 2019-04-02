@@ -4,6 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@using WebBanSach.Models.EF
+@model Sach
+
+
 <!-- start main -->
 <div class="main_bg">
     <div class="wrap">
@@ -21,7 +25,7 @@
                                     </div>
                                     <div class="product-image">
                                         <a class="" href="#" title="Women Shorts" alt="Women Shorts">
-                                            <img src="~/Assets/images/test4.jpg" alt="Women Shorts" title="Women Shorts" />
+                                            <img src="~/Assets/images/@Model.Hinhminhhoa" alt="Women Shorts" title="@Model.Tensach" />
                                         </a>
                                     </div>
                                 </div>
@@ -33,15 +37,15 @@
                     <div class="span1_of_1_des">
                         <div class="desc1">
                             <div>
-                                <h3 style="font-weight: 700;">Học thể nào bây giờ ?</h3>
-                                <p>Học thế nào bây giờ - Chiến Lược Phát Triển Bản Thân Và Thành Công Trong Việc Học - Dành Cho Học Sinh Cấp II</p>
+                                <h3 style="font-weight: 700;">@Model.Tensach</h3>
+                                <p>@Model.Motangangon</p>
                             </div>
                             <div style="display: flex;">
                                 <div style="width: 50%; display: flex; justify-content: flex-start;">
                                     <span>Tác giả</span>
                                 </div>
                                 <div style="width: 50%; display: flex; justify-content: flex-end;">
-                                    <strong style="font-weight: 550;">Ngô Kinh</strong>
+                                    <strong style="font-weight: 550;">@Model.Tacgia.Tentacgia</strong>
                                 </div>
                             </div>
                             <div style="display: flex;">
@@ -49,7 +53,7 @@
                                     <span>Dịch giả</span>
                                 </div>
                                 <div style="width: 50%; display: flex; justify-content: flex-end;">
-                                    <strong style="font-weight: 550;">Ngô Thừa Ân</strong>
+                                    <strong style="font-weight: 550;">@Model.Tacgia.Tentacgia</strong>
                                 </div>
                             </div>
                             <hr />
@@ -58,7 +62,7 @@
                                     <span>Giá thị trường</span>
                                 </div>
                                 <div style="width: 50%; display: flex; justify-content: flex-end;">
-                                    <strong style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: 550;">100.000đ</strong>
+                                    <strong style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: 550;">@(Model.Dongia + "đ")</strong>
                                 </div>
                             </div>
                             <div style="display: flex;">
@@ -66,7 +70,7 @@
                                     <span>Giá bán</span>
                                 </div>
                                 <div style="width: 50%; display: flex; justify-content: flex-end;">
-                                    <strong style="font-size: 18px; color: #f15c22; font-weight: 550;">80.000đ</strong>
+                                    <strong style="font-size: 18px; color: #f15c22; font-weight: 550;">@(Model.Giakm == null ? Model.Dongia + "đ" : Model.Giakm + "đ")</strong>
                                 </div>
                             </div>
                             <div style="display: flex;">
@@ -74,7 +78,7 @@
                                     <span>Tiết kiệm</span>
                                 </div>
                                 <div style="width: 50%; display: flex; justify-content: flex-end;">
-                                    <strong style="font-size: 18px; font-weight: 550;">20.000đ</strong>
+                                    <strong style="font-size: 18px; font-weight: 550;">@(Model.Giakm == null ? 0 + "đ" : (Model.Dongia - Model.Giakm) + "đ")</strong>
                                 </div>
                             </div>
                             <div style="display: flex;">
@@ -82,7 +86,7 @@
                                     <span>Tình trạng</span>
                                 </div>
                                 <div style="width: 50%; display: flex; justify-content: flex-end;">
-                                    <em style="font-size: 14px; color: #f15c22; font-style: italic;">Còn hàng</em>
+                                    <em style="font-size: 14px; color: #f15c22; font-style: italic;">@(Model.Soluong > 0 ? "Còn hàng" : "Hết hàng")</em>
                                 </div>
                             </div>
                             <hr />
@@ -93,16 +97,16 @@
                                     <form class="form">
                                         <div class="form-group">
                                             <div class="btn-group">
-                                                <button type="button" class="btn" style="background-color: #4CCFC1; color: #fff;"><i class="fa fa-minus"></i></button>
-                                                <input type="text" class="form-control" value="1" style="width: 65px; border-radius: unset; text-align: center;">
-                                                <button type="button" class="btn" style="background-color: #4CCFC1; color: #fff;"><i class="fa fa-plus"></i></button>
+                                                <button id="btnMinus" type="button" class="btn" style="background-color: #4CCFC1; color: #fff;" onclick="onChangeQuantity('btnMinus')"><i class="fa fa-minus"></i></button>
+                                                <input id="quantityValue" type="text" class="form-control" value="1" style="width: 65px; border-radius: unset; text-align: center;">
+                                                <button id="btnPlus" type="button" class="btn" style="background-color: #4CCFC1; color: #fff;" onclick="onChangeQuantity('btnPlus')"><i class="fa fa-plus"></i></button>
                                             </div>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="btn_form">
                                     <form>
-                                        <input type="submit" value="Thêm vào giỏ hàng" title="" />
+                                        <input type="submit" id="addToCart" value="Thêm vào giỏ hàng" />
                                     </form>
                                 </div>
                                 <div class="clear"></div>
@@ -136,37 +140,10 @@
               overflow-y: scroll;">
                             <div class="content-1">
                                 <h5>
-                                    Học Thế Nào Bây Giờ???
+                                    @Model.Tensach
                                 </h5>
                                 <p>
-                                    Tại sao những người trẻ phương Tây nhìn trưởng thành và tự chủ hơn rất nhiều so với những người trẻ Việt Nam? Câu trả
-                                    lời có lẽ nằm ở chỗ: Các nước phát triển lấy giáo dục tự chủ cho con em mình làm mục tiêu hàng đầu, họ dạy cho học
-                                    sinh biết suy nghĩ phải học như thế nào để tiến đến thành nhân, trở thành con người tự chủ.
-                                    <br />
-                                    Chúng ta đang giáo dục con em mình thế nào trong gia đình và nhà trường? Phải chăng là quá coi trọng sự truyền đạt các
-                                    tri thức giáo khoa một chiều, mà hệ quả là dẫn đến sự thụ động. Trong khi đó, phương Tây họ coi phương pháp học,
-                                    cách thức tổ chức việc học là một trong những yếu tố cần thiết và quan trọng hàng đầu trong việc giáo dục con em.
-                                    <br />
-                                    Chúng ta có thể học nền giáo dục phương Tây bằng nhiều cách: mời chuyên gia nước ngoài về; tiếp thu những công
-                                    nghệ giáo dục tiên tiến qua con đường giao lưu, trao đổi văn hóa-giáo dục; nghiên cứu so sánh các nền giáo dục để
-                                    biết chúng ta đang ở đâu, đi đúng đường, lạc đường hay nhầm đường?… Một trong những cách học hiệu quả và ít tốn
-                                    kém có lẽ là học từ sách, bằng cách tìm dịch những cuốn sách hay (của phương Tây) ứng dụng thực tế cho các lứa tuổi
-                                    học sinh, cho phụ huynh và giáo viên mà cuốn sách Học thế nào bây giờ? là một trong những cuốn đầu tiên do Dự án
-                                    Kid’s Books triển khai.
-                                    <br />
-                                    Bằng một lối viết phù hợp với lứa tuổi, qua cuốn sách Học thế nào bây giờ?, Giáo sư Giordan André, Đại học Genève -
-                                    Thụy Sĩ, đã đề cập và phân tích những chủ đề hết sức cần thiết cho việc học như: học hiểu về não bộ, học tự chủ, học
-                                    ghi chép, học quản lý thời gian, v.v…
-                                    <br />
-                                    Cuốn sách giải thích cho học sinh những thái độ nên có, cách thức và phương pháp tổ chức việc học tập ở nhà cũng như
-                                    ở trường... Học sinh sẽ tìm thấy trong cuốn sách những lời khuyên hữu ích giúp bản thân thành công hơn trên con đường
-                                    học tập.
-                                    <br />
-                                    Cuốn sách cũng là một người bạn tốt của phụ huynh và giáo viên, giúp họ bình tĩnh nhìn lại việc dạy và học của bản
-                                    thân cũng như việc học của con em mình.
-                                    <br />
-                                    Tóm lại, Học thế nào bây giờ? là cuốn sách rất thiết thực cho tất cả học sinh cũng như phụ huynh trong việc hỗ trợ
-                                    con cái học tập. Cuốn sách là cẩm nang quý giúp học sinh Việt Nam trong cuộc sống và trong việc học tập hằng ngày.
+                                    @Model.Mota
                                 </p>
                                 <div class="clear"></div>
                             </div>
@@ -277,5 +254,98 @@
             <!-- end content -->
         </div>
     </div>
+    <div id="modalAddToCart" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalAddToCart" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Sản phẩm đã được thêm vào giỏ hàng</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="addProductSuccess">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="onRedirectToAction('/DanhMuc/Index')">Tiếp tục mua hàng</button>
+                    <button type="button" class="btn btn-success" onclick="onRedirectToAction('/GioHang/Index')">Đến giỏ hàng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modalLogin" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="modalLogin" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Thông báo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger">Bạn phải đăng nhập để sử dụng chức năng này</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="onRedirectToAction('/DangNhap/Index')">Đăng nhập</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script>
+    const onChangeQuantity = selector => {
+        let quantity = @Model.Soluong
+        let currentValue = $('#quantityValue').val()
+        if (selector === 'btnMinus') {
+            --currentValue === 0 ? $('#quantityValue').val(1) : $('#quantityValue').val(currentValue)
+        } else {
+            ++currentValue > quantity ? $('#quantityValue').val(quantity) : $('#quantityValue').val(currentValue)
+        }
+    }
+
+    $('#addToCart').click(e => {
+        e.preventDefault()
+        //let userSession = 
+        //if (!userSession) {
+        //    $('#modalLogin').modal('show')
+        //    return
+        //}
+
+        let quantity = $('#quantityValue').val()
+        let contentString =
+            `
+                <div style="display: flex">
+                    <img src="/Assets/images/@Model.Hinhminhhoa" alt="product_image">
+                    <div>
+                        <h3>@Model.Tensach</h3>
+                        <span>Số lượng: ${ quantity }</span><br />
+                        <span>Đơn giá: @(Model.Giakm == null ? Model.Dongia + "đ" : Model.Giakm + "đ")</span>
+                    </div>
+                </div>
+            `
+        $.ajax({
+            url: '/ChiTietSach/AddToCart',
+            data: { productID: @Model.Masach, quantity },
+            method: 'POST',
+            dataType: 'text',
+            success: function (response) {
+                response = JSON.parse(response)
+                if (response.status === true) {
+                    $('#addProductSuccess').html(contentString)
+                    $('#modalAddToCart').modal('show')
+                } else {
+                    alert('Thêm thất bại')
+                }
+            }
+        })
+
+        
+
+
+    })
+
+    const onRedirectToAction = url => {
+        $(location).attr("href", url)
+    }
+</script>
 

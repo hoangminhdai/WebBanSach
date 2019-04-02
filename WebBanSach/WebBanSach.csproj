@@ -151,6 +151,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Common\CartItem.cs" />
     <Compile Include="Models\Common\UserLogin.cs" />
     <Compile Include="Models\EF\Chinhanh.cs" />
     <Compile Include="Models\EF\ChiTietGioHang.cs" />

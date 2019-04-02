@@ -55,7 +55,7 @@
                 </div>
                 <div class="cau_left" style="height: 150px;">
                     <h4 style="height: 50%; overflow: hidden; text-overflow: ellipsis;"><a href="/Chitietsach/Index" style="font-size: 18px; font-weight: 500;">@item.Tensach</a></h4>
-                    <a href="/ChiTietSach/Index" class="btn" style="margin-top: 10px;">Đặt mua</a>
+                    <a href="/ChiTietSach/Index?ID=@item.Masach" class="btn" style="margin-top: 10px;">Đặt mua</a>
                 </div>
             </div>
         }
@@ -82,7 +82,7 @@
                     var @giacu = @item.Dongia != null ? @item.Dongia.ToString() + "đ" : "";
                     var @giamoi = @item.Giakm != null ? @item.Giakm.ToString() + "đ" : "";
                     <div class="grid1_of_3">
-                        <a href="/ChiTietSach/Index">
+                        <a href="/ChiTietSach/Index?ID=@item.Masach">
                             <img src="~/Assets/images/@item.Hinhminhhoa" alt="" />
                             <h3 style=" overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="@item.Tensach">@item.Tensach</h3>
                             <div class="price">
@@ -112,7 +112,7 @@
                     var @giacu = @item.Dongia != null ? @item.Dongia.ToString() + "đ" : "";
                     var @giamoi = @item.Giakm != null ? @item.Giakm.ToString() + "đ" : "";
                     <div class="grid1_of_3">
-                        <a href="/ChiTietSach/Index">
+                        <a href="/ChiTietSach/Index?ID=@item.Masach">
                             <img src="~/Assets/images/@item.Hinhminhhoa" alt="" />
                             <h3 style=" overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="@item.Tensach">@item.Tensach</h3>
                             <div class="price">
