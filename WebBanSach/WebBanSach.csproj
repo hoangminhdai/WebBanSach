@@ -142,12 +142,14 @@
     <Compile Include="Areas\AdminSite\Controllers\AdminQuanLySachController.cs" />
     <Compile Include="Areas\AdminSite\Controllers\AdminTrangChuController.cs" />
     <Compile Include="Controllers\ChiTietSachController.cs" />
+    <Compile Include="Controllers\ChuDeController.cs" />
     <Compile Include="Controllers\DangKiController.cs" />
     <Compile Include="Controllers\DangNhapController.cs" />
     <Compile Include="Controllers\DanhMucController.cs" />
     <Compile Include="Controllers\GioHangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LienHeController.cs" />
+    <Compile Include="Controllers\SachController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -3577,7 +3579,6 @@
     <Content Include="Views\DanhMuc\Index.cshtml" />
     <Content Include="Views\GioHang\Index.cshtml" />
     <Content Include="Views\LienHe\Index.cshtml" />
-    <Content Include="Views\ChiTietSach\Index.cshtml" />
     <Content Include="Views\DangNhap\Index.cshtml" />
     <Content Include="Views\DangKi\Index.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
@@ -3589,6 +3590,11 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Sach\SachMoi.cshtml" />
+    <Content Include="Views\ChuDe\chude.cshtml" />
+    <Content Include="Views\ChiTietSach\XemChiTiet.cshtml" />
+    <Content Include="Views\Sach\XemChiTiet.cshtml" />
+    <Content Include="Views\DanhMuc\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

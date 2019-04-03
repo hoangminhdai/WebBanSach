@@ -1,0 +1,160 @@
+﻿@using WebBanSach.Models.EF;
+@*@model List<Sach>*@
+@model Sach
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<!-- start details -->
+<link rel="stylesheet" type="text/css" href="css/productviewgallery.css" media="all" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/cloud-zoom.1.0.3.min.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox-buttons.js"></script>
+<script type="text/javascript" src="js/jquery.fancybox-thumbs.js"></script>
+<script type="text/javascript" src="js/productviewgallery.js"></script>
+<!-- start top_js_button -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+        $(".scroll").click(function (event) {
+            event.preventDefault();
+            $('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1200);
+        });
+    });
+</script>
+
+<!-- start main -->
+<div class="main_bg">
+    <div class="wrap">
+        <div class="main">
+            <!-- start content -->
+            <div class="single">
+                <!-- start span1_of_1 -->
+                <div class="left_content">
+                    <div class="span1_of_1">
+                        <!-- start product_slider -->
+                        <div class="product-view">
+                            <div class="product-essential">
+                                <div class="product-img-box">
+                                    <div class="more-views" style="float:left;">
+                                    </div>
+                                    <div class="product-image">
+                                        <a class="" href="#" title="@Model.Tensach" alt="@Model.Tensach">
+                                            <img src="~/Assets/images/books/@Model.Hinhminhhoa" alt="@Model.Tensach" title="@Model.Tensach" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end product_slider -->
+                    </div>
+                    <!-- start span1_of_1 -->
+                    <div class="span1_of_1_des">
+                        <div class="desc1">
+                            <div>
+                                <h3 style="font-weight: 700;">@Model.Tensach</h3>
+                                <p>@Model.Mota</p>
+                            </div>
+                            <div style="display: flex;">
+                                <div style="width: 50%; display: flex; justify-content: flex-start;">
+                                    <span>@Model.Tacgia.Tentacgia</span>
+                                </div>
+                                <div style="width: 50%; display: flex; justify-content: flex-end;">
+                                    <strong style="font-weight: 550;">@Model.Tacgia.Tentacgia</strong>
+                                </div>
+                            </div>
+                            <hr />
+                            <div style="display: flex;">
+                                <div style="width: 50%; display: flex; justify-content: flex-start;">
+                                    <span>Giá thị trường</span>
+                                </div>
+                                <div style="width: 50%; display: flex; justify-content: flex-end;">
+                                    <strong style="text-decoration: line-through; font-size: 14px; color: #888; font-weight: 550;">@Model.Dongia đ</strong>
+                                </div>
+                            </div>
+                            <div style="display: flex;">
+                                <div style="width: 50%; display: flex; justify-content: flex-start;">
+                                    <span>Giá bán</span>
+                                </div>
+                                <div style="width: 50%; display: flex; justify-content: flex-end;">
+                                    <strong style="font-size: 18px; color: #f15c22; font-weight: 550;">@Model.Dongia 0đ</strong>
+                                </div>
+                            </div>
+                            <hr />
+                            <!-- <h5>Rs. 399 <a href="#">click for offer</a></h5> -->
+                            <div class="available" style="border-top: none;">
+                                @*<div style="display: flex;">
+                                    <div style="width: 75px;">Số lượng:</div>
+                                    <form class="form">
+                                        <div class="form-group">
+                                            <div class="btn-group">
+                                                <button type="button" class="btn" style="background-color: #4CCFC1; color: #fff;"><i class="fa fa-minus"></i></button>
+                                                <input type="text" class="form-control" value="1" style="width: 65px; border-radius: unset; text-align: center;">
+                                                <button type="button" class="btn" style="background-color: #4CCFC1; color: #fff;"><i class="fa fa-plus"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>*@
+                                <div class="btn_form">
+                                    <form>
+                                        <input type="button" onclick="AddToCart()" value="Thêm vào giỏ hàng" title="Thêm vào giỏ hàng" />
+                                    </form>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+            <!-- end content -->
+        </div>
+    </div>
+</div>
+<!-- start footer -->
+<div class="footer_bg1">
+    <div class="wrap">
+        <div class="footer">
+            <!-- scroll_top_btn -->
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    var defaults = {
+                        containerID: 'toTop', // fading element id
+                        containerHoverID: 'toTopHover', // fading element hover id
+                        scrollSpeed: 1200,
+                        easingType: 'linear'
+                    };
+
+
+                    $().UItoTop({ easingType: 'easeOutQuart' });
+
+                });
+            </script>
+            <script>
+                function AddToCart() {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.open("GET", "http://localhost:25676/DanhMuc/Add?Masach=1008", false);
+                    xhttp.send();
+                    var jsonRes = JSON.parse(xhttp.responseText);
+                    var donGia = jsonRes["DonGia"];
+                    document.getElementById("cart").innerHTML = donGia;
+                }
+            </script>
+            <a href="#" id="toTop" style="display: block;"><span id="toTopHover" style="opacity: 1;"></span></a>
+            <!--end scroll_top_btn -->
+           >
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
