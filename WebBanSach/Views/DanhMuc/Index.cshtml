@@ -4,6 +4,7 @@
     ViewBag.Title = "Danh mục";
 }
 
+@using WebBanSach.Models.EF
 
 <!-- start main -->
 <div class="main_bg">
@@ -13,256 +14,41 @@
             <div class="gallery1">
                 <div class="container">
                     <ul id="filters" class="clearfix">
-                        <li><span class="filter active" data-filter="app card logo web">Tất cả</span></li>
-                        <li><span class="filter" data-filter="app">Sách giáo khoa</span></li>
-                        <li><span class="filter" data-filter="card">Sách thiếu nhi</span></li>
-                        <li><span class="filter" data-filter="logo">Sách khoa học</span></li>
-                        <li><span class="filter" data-filter="web">Sách khác</span></li>
+                        @{
+                            var lstDanhMuc = ViewBag.ListDanhMuc as IEnumerable<Chude>;
+                            string keyAll = "";
+                            foreach (var item in lstDanhMuc)
+                            {
+                                keyAll += item.Key + " ";
+                            }
+                            <li><span class="filter active" data-filter="@keyAll">Tất cả</span></li>
+                            foreach (var item in lstDanhMuc)
+                            {
+                            <li><span class="filter" data-filter="@item.Key">@item.Tenchude</span></li>
+                            }
+                        }
                     </ul>
                     <div id="portfoliolist">
-                        <div class="portfolio logo" data-cat="logo">
-                            <div class="portfolio-wrapper">
-                                <a href="/ChiTietSach/Index">
-                                    <img src="~/Assets/images/books/k.jpg" alt="Image 2" />
-                                </a>
-                                <div class="price">
-                                    <h3>Thuật tư tưởng</h3>
-                                    <h4>
-                                        <span>690.000đ</span>
-                                        <span class="sale">960.000đ</span>
-                                        <span class="details">Chi tiết</span>
-                                    </h4>
+                        @foreach (var item in ViewBag.ListSach as IEnumerable<Sach>)
+                        {
+                            var @donGia = @item.Dongia + "đ";
+                            var @giaKm = @item.Giakm + "đ";
+                            <div class="portfolio @item.Chude.Key" data-cat="@item.Chude.Key">
+                                <div class="portfolio-wrapper">
+                                    <a href="/ChiTietSach/Index">
+                                        <img src="~/Assets/images/books/@item.Hinhminhhoa" alt="Image 2" />
+                                    </a>
+                                    <div class="price">
+                                        <h3>@item.Tensach</h3>
+                                        <h4>
+                                            <span>@giaKm</span>
+                                            <span class="sale">@donGia</span>
+                                            <span class="details">Chi tiết</span>
+                                        </h4>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="portfolio app" data-cat="app">
-                            <div class="portfolio-wrapper">
-                                <a href="/ChiTietSach/Index">
-                                    <img src="~/Assets/images/books/gk.jpg" alt="Image 2" />
-                                </a>
-                                <div class="price">
-                                    <h3>Thuật tư tưởng</h3>
-                                    <h4>
-                                        <span>690.000đ</span>
-                                        <span class="sale">960.000đ</span>
-                                        <span class="details">Chi tiết</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portfolio web" data-cat="web">
-                            <div class="portfolio-wrapper">
-                                <a href="/ChiTietSach/Index">
-                                    <img src="~/Assets/images/books/z.jpg" alt="Image 2" />
-                                </a>
-                                <div class="price">
-                                    <h3>Thuật tư tưởng</h3>
-                                    <h4>
-                                        <span>690.000đ</span>
-                                        <span class="sale">960.000đ</span>
-                                        <span class="details">Chi tiết</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portfolio card" data-cat="card">
-                            <div class="portfolio-wrapper">
-                                <a href="/ChiTietSach/Index">
-                                    <img src="~/Assets/images/books/t.jpg" alt="Image 2" />
-                                </a>
-                                <div class="price">
-                                    <h3>Thuật tư tưởng</h3>
-                                    <h4>
-                                        <span>690.000đ</span>
-                                        <span class="sale">960.000đ</span>
-                                        <span class="details">Chi tiết</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="portfolio card" data-cat="card">
-                            <div class="portfolio-wrapper">
-                                <a href="/ChiTietSach/Index">
-                                    <img src="~/Assets/images/books/tt.jpg" alt="Image 2" />
-                                </a>
-                                <div class="price">
-                                    <h3>Thuật tư tưởng</h3>
-                                    <h4>
-                                        <span>690.000đ</span>
-                                        <span class="sale">960.000đ</span>
-                                        <span class="details">Chi tiết</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portfolio web" data-cat="web">
-                            <div class="portfolio-wrapper">
-                                <a href="/ChiTietSach/Index">
-                                    <img src="~/Assets/images/books/zz.jpg" alt="Image 2" />
-                                </a>
-                                <div class="price">
-                                    <h3>Thuật tư tưởng</h3>
-                                    <h4>
-                                        <span>690.000đ</span>
-                                        <span class="sale">960.000đ</span>
-                                        <span class="details">Chi tiết</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portfolio app" data-cat="app">
-                            <div class="portfolio-wrapper">
-                                <a href="/ChiTietSach/Index">
-                                    <img src="~/Assets/images/books/gk6.jpg" alt="Image 2" />
-                                </a>
-                                <div class="price">
-                                    <h3>Thuật tư tưởng</h3>
-                                    <h4>
-                                        <span>690.000đ</span>
-                                        <span class="sale">960.000đ</span>
-                                        <span class="details">Chi tiết</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portfolio card" data-cat="card">
-                            <div class="portfolio-wrapper">
-                                <a href="/ChiTietSach/Index">
-                                    <img src="~/Assets/images/books/ttt.jpg" alt="Image 2" />
-                                </a>
-                                <div class="price">
-                                    <h3>Thuật tư tưởng</h3>
-                                    <h4>
-                                        <span>690.000đ</span>
-                                        <span class="sale">960.000đ</span>
-                                        <span class="details">Chi tiết</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portfolio app" data-cat="app">
-                            <div class="portfolio-wrapper">
-                                <a href="/ChiTietSach/Index">
-                                    <img src="~/Assets/images/books/gk3.jpg" alt="Image 2" />
-                                </a>
-                                <div class="price">
-                                    <h3>Thuật tư tưởng</h3>
-                                    <h4>
-                                        <span>690.000đ</span>
-                                        <span class="sale">960.000đ</span>
-                                        <span class="details">Chi tiết</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portfolio card" data-cat="card">
-                            <div class="portfolio-wrapper">
-                                <a href="/ChiTietSach/Index">
-                                    <img src="~/Assets/images/books/tttt.jpg" alt="Image 2" />
-                                </a>
-                                <div class="price">
-                                    <h3>Thuật tư tưởng</h3>
-                                    <h4>
-                                        <span>690.000đ</span>
-                                        <span class="sale">960.000đ</span>
-                                        <span class="details">Chi tiết</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portfolio app" data-cat="app">
-                            <div class="portfolio-wrapper">
-                                <a href="/ChiTietSach/Index">
-                                    <img src="~/Assets/images/books/gk4.jpg" alt="Image 2" />
-                                </a>
-                                <div class="price">
-                                    <h3>Thuật tư tưởng</h3>
-                                    <h4>
-                                        <span>690.000đ</span>
-                                        <span class="sale">960.000đ</span>
-                                        <span class="details">Chi tiết</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portfolio card" data-cat="card">
-                            <div class="portfolio-wrapper">
-                                <a href="/ChiTietSach/Index">
-                                    <img src="~/Assets/images/books/ttttt.jpg" alt="Image 2" />
-                                </a>
-                                <div class="price">
-                                    <h3>Thuật tư tưởng</h3>
-                                    <h4>
-                                        <span>690.000đ</span>
-                                        <span class="sale">960.000đ</span>
-                                        <span class="details">Chi tiết</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portfolio app" data-cat="app">
-                            <div class="portfolio-wrapper">
-                                <a href="/ChiTietSach/Index">
-                                    <img src="~/Assets/images/books/gk5.jpg" alt="Image 2" />
-                                </a>
-                                <div class="price">
-                                    <h3>Thuật tư tưởng</h3>
-                                    <h4>
-                                        <span>690.000đ</span>
-                                        <span class="sale">960.000đ</span>
-                                        <span class="details">Chi tiết</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portfolio logo" data-cat="logo">
-                            <div class="portfolio-wrapper">
-                                <a href="/ChiTietSach/Index">
-                                    <img src="~/Assets/images/books/kk.jpg" alt="Image 2" />
-                                </a>
-                                <div class="price">
-                                    <h3>Thuật tư tưởng</h3>
-                                    <h4>
-                                        <span>690.000đ</span>
-                                        <span class="sale">960.000đ</span>
-                                        <span class="details">Chi tiết</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="portfolio logo" data-cat="logo">
-                            <div class="portfolio-wrapper">
-                                <a href="/ChiTietSach/Index">
-                                    <img src="~/Assets/images/books/kkk.jpg" alt="Image 2" />
-                                </a>
-                                <div class="price">
-                                    <h3>Thuật tư tưởng</h3>
-                                    <h4>
-                                        <span>690.000đ</span>
-                                        <span class="sale">960.000đ</span>
-                                        <span class="details">Chi tiết</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="portfolio logo" data-cat="logo">
-                            <div class="portfolio-wrapper">
-                                <a href="/ChiTietSach/Index">
-                                    <img src="~/Assets/images/books/kkkk.jpg" alt="Image 2" />
-                                </a>
-                                <div class="price">
-                                    <h3>Thuật tư tưởng</h3>
-                                    <h4>
-                                        <span>690.000đ</span>
-                                        <span class="sale">960.000đ</span>
-                                        <span class="details">Chi tiết</span>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
+                        }
                     </div>
                 </div><!-- container -->
                 <script type="text/javascript" src="~/Assets/js/fliplightbox.min.js"></script>

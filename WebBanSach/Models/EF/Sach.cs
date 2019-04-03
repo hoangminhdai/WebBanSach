@@ -21,6 +21,7 @@ namespace WebBanSach.Models.EF
         [StringLength(200)]
         public string Tensach { get; set; }
 
+        public decimal? Giakm { get; set; }
         public int? Dongia { get; set; }
 
         [StringLength(10)]
@@ -42,6 +43,9 @@ namespace WebBanSach.Models.EF
         public int? Matacgia { get; set; }
 
         public int? Soluong { get; set; }
+
+        [Column(TypeName = "ntext")]
+        public string Motangangon { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietGioHang> ChiTietGioHangs { get; set; }

@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using WebBanSach.Models.EF
+
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -9,6 +12,7 @@
     <link href="~/Assets/css/animate.min.css" rel="stylesheet" type="text/css" media="all" />
     <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <link href="~/Assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
     <link href="~/Assets/css/owl.carousel.css" rel="stylesheet" />
     <script type="text/javascript" src="~/Assets/js/jquery.min.js"></script>
@@ -105,8 +109,17 @@
                         <li><a href="/LienHe/Index">Liên hệ</a></li> |
                     </ul>
                     <ul style="width: 50%;">
-                        <li style="float: right;"><a href="/DangKi/Index">Đăng kí</a></li>
-                        <li style="float: right;"><a href="/DangNhap/Index">Đăng nhập | </a></li>
+                        @if (Session["USER_SESSION"] == null)
+                        {
+                            <li style="float: right;"><a href="/DangKi/Index">Đăng kí</a></li>
+                            <li style="float: right;"><a href="/DangNhap/Index">Đăng nhập | </a></li>
+                        }
+                        else
+                        {
+                            var @kh = Session["USER_SESSION"] as Khachhang;
+                            <li style="float: right;"><a href="/DangNhap/DangXuat">Đăng xuất</a></li>
+                            <li style="float: right;"><a href="#">Xin chào, @kh.Tendn  | </a></li>
+                        }
                     </ul>
                 </div>
                 <div class="clear"></div>
