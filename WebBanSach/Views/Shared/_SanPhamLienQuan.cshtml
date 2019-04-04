@@ -1,0 +1,85 @@
+﻿@using WebBanSach.Models.EF;
+@model IEnumerable<Sach>
+
+<div class="sellers">
+    <h4>Sách có liên quan</h4>
+    <div style="height: 850px; overflow-y: scroll;">
+        @{
+            foreach (Sach item in Model)
+            {
+                <div style="display: flex; margin: 25px auto; width: 200px;">
+                    <a href="#" style="text-decoration: none;">
+                        <img src="~/Assets/images/@item.Hinhminhhoa" alt="image">
+                        <div style="font-weight: 700; color: #999;">
+                            @item.Tensach
+                        </div>
+                        <div style="font-weight: 400; color: #1d9d74; font-size: 12px;">
+                            @item.Tacgia
+                        </div>
+                        <div>
+                            <span style="color: #f15c22; font-size: 16px; font-weight: 500;">@(item.Giakm.GetValueOrDefault(0).ToString("N3") + "đ")</span>
+                            <span style="color: #333333; text-decoration: line-through; font-size: 12px">@(item.Dongia.GetValueOrDefault(0).ToString("N3") + "đ")</span>
+                            <span style="padding: 5px; color: #fff; background-color: #f51919;">-16%</span>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+
+        <div style="display: flex; margin: 25px auto; width: 200px;">
+            <a href="#" style="text-decoration: none;">
+                <img src="~/Assets/images/sach-lien-quan-2.jpg" alt="image">
+                <div style="font-weight: 700; color: #999;">
+                    Chiến Tranh Không Có Một Khuôn Mặt Phụ Nữ
+                </div>
+                <div style="font-weight: 400; color: #1d9d74; font-size: 12px;">
+                    Svetlana Alexievich
+                </div>
+                <div>
+                    <span style="color: #f15c22; font-size: 16px; font-weight: 500;">125.500đ</span>
+                    <span style="color: #333333; text-decoration: line-through; font-size: 12px">148.000đ</span>
+                    <span style="padding: 5px; color: #fff; background-color: #f51919;">-16%</span>
+                </div>
+            </a>
+        </div>
+        <div style="display: flex; margin: 25px auto; width: 200px;">
+            <a href="#" style="text-decoration: none;">
+                <img src="~/Assets/images/giao-duc-nao-phai-tuong-lai-cho-con-ban_54135_1.png" alt="image">
+                <div style="font-weight: 700; color: #999;">
+                    Giáo dục não phải
+                </div>
+                <div style="font-weight: 400; color: #1d9d74; font-size: 12px;">
+                    GS. Makoto Shichida
+                </div>
+                <div>
+                    <span style="color: #f15c22; font-size: 16px; font-weight: 500;">123.000đ</span>
+                    <span style="color: #333333; text-decoration: line-through; font-size: 12px">145.000đ</span>
+                    <span style="padding: 5px; color: #fff; background-color: #f51919;">-16%</span>
+                </div>
+            </a>
+        </div>
+        <div style="display: flex; margin: 25px auto; width: 200px;">
+            <a href="#" style="text-decoration: none;">
+                <img src="~/Assets/images/muoi-van-cau-hoi-vi-sao-cuoc-song-quanh-ta-tai-ban-2018-_93791_1.jpg" alt="image">
+                <div style="font-weight: 700; color: #999;">
+                    Mười vạn câu hỏi vì sao?
+                </div>
+                <div style="font-weight: 400; color: #1d9d74; font-size: 12px;">
+                    Vân Phàm
+                </div>
+                <div>
+                    <span style="color: #f15c22; font-size: 16px; font-weight: 500;">38.000đ</span>
+                    <span style="color: #333333; text-decoration: line-through; font-size: 12px">45.000đ</span>
+                    <span style="padding: 5px; color: #fff; background-color: #f51919;">-16%</span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="banner-wrap bottom_banner color_link">
+        <a href="#" class="main_link">
+            <figure><img src="~/Assets/images/delivery.png" alt=""></figure>
+            <h5><span>Free Shipping</span><br> on orders over 250K.</h5>
+            <p>This offer is valid on all our store items.</p>
+        </a>
+    </div>
+</div>

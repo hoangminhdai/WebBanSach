@@ -305,11 +305,11 @@
 
     $('#addToCart').click(e => {
         e.preventDefault()
-        //let userSession = 
-        //if (!userSession) {
-        //    $('#modalLogin').modal('show')
-        //    return
-        //}
+        let usersession = @Session["USER_SESSION"]
+        if (!usersession) {
+            $('#modalLogin').modal('show')
+            return
+        }
 
         let quantity = $('#quantityValue').val()
         let contentString =
@@ -337,7 +337,7 @@
                     alert('Thêm thất bại')
                 }
             }
-        })
+        }) 
 
         
 

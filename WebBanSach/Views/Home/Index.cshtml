@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @using WebBanSach.Models.EF
+@model IEnumerable<Sach>
 
 <!-- start slider -->
 <div id="carouselIndicators" class="carousel slide">
@@ -76,9 +77,8 @@
         <div class="main">
             <!-- start grids_of_3 -->
             <div class="grids_of_3">
-                @for (int i = 0; i < 3; i++)
+                @foreach (Sach item in Model)
                 {
-                    var @item = @ViewBag.ListSachNoiBat[i] as Sach;
                     var @giacu = @item.Dongia != null ? @item.Dongia.ToString() + "đ" : "";
                     var @giamoi = @item.Giakm != null ? @item.Giakm.ToString() + "đ" : "";
                     <div class="grid1_of_3">
@@ -103,12 +103,39 @@
                         </a>
                     </div>
                 }
+                @*@for (int i = 0; i < 3; i++)
+                {
+                    var @item = Model[i] as Sach;
+                    var @giacu = @item.Dongia != null ? @item.Dongia.ToString() + "đ" : "";
+                    var @giamoi = @item.Giakm != null ? @item.Giakm.ToString() + "đ" : "";
+                    <div class="grid1_of_3">
+                        <a href="/ChiTietSach/Index?ID=@item.Masach">
+                            <img src="~/Assets/images/@item.Hinhminhhoa" alt="" />
+                            <h3 style=" overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="@item.Tensach">@item.Tensach</h3>
+                            <div class="price">
+                                <h4>
+                                    @if (@giamoi != "")
+                                    {
+                                        <span>@giamoi</span>
+                                        <span style="text-decoration: line-through; font-size: 0.8em; margin-left: 5px;">@giacu</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@giacu</span>
+                                    }
+                                    <span class="details">Chi tiết</span>
+                                </h4>
+                            </div>
+                            <span class="b_btm"></span>
+                        </a>
+                    </div>
+                }*@
                 <div class="clear"></div>
             </div>
-            <div class="grids_of_3">
+            @*<div class="grids_of_3">
                 @for (int i = 3; i < 6; i++)
                 {
-                    var @item = @ViewBag.ListSachNoiBat[i] as Sach;
+                    var @item = Model[i] as Sach;
                     var @giacu = @item.Dongia != null ? @item.Dongia.ToString() + "đ" : "";
                     var @giamoi = @item.Giakm != null ? @item.Giakm.ToString() + "đ" : "";
                     <div class="grid1_of_3">
@@ -134,7 +161,7 @@
                     </div>
                 }
                 <div class="clear"></div>
-            </div>
+            </div>*@
         </div>
     </div>
     <script>
