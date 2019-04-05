@@ -302,50 +302,54 @@
             ++currentValue > quantity ? $('#quantityValue').val(quantity) : $('#quantityValue').val(currentValue)
         }
     }
-
-    $('#addToCart').click(e => {
-        e.preventDefault()
-        //let userSession = 
-        //if (!userSession) {
-        //    $('#modalLogin').modal('show')
-        //    return
-        //}
-
-        let quantity = $('#quantityValue').val()
-        let contentString =
-            `
-                <div style="display: flex">
-                    <img src="/Assets/images/@Model.Hinhminhhoa" alt="product_image">
-                    <div>
-                        <h3>@Model.Tensach</h3>
-                        <span>Số lượng: ${ quantity }</span><br />
-                        <span>Đơn giá: @(Model.Giakm == null ? Model.Dongia + "đ" : Model.Giakm + "đ")</span>
-                    </div>
-                </div>
-            `
-        $.ajax({
-            url: '/ChiTietSach/AddToCart',
-            data: { productID: @Model.Masach, quantity },
-            method: 'POST',
-            dataType: 'text',
-            success: function (response) {
-                response = JSON.parse(response)
-                if (response.status === true) {
-                    $('#addProductSuccess').html(contentString)
-                    $('#modalAddToCart').modal('show')
-                } else {
-                    alert('Thêm thất bại')
-                }
-            }
-        })
-
-        
-
-
-    })
-
     const onRedirectToAction = url => {
         $(location).attr("href", url)
     }
 </script>
+@{ 
+    if (Session["USER_SESSION"] != null)
+    {
+        <script>
+            $('#addToCart').click(e => {
+                e.preventDefault()
+                let quantity = $('#quantityValue').val()
+                let contentString =
+                    `
+                        <div style="display: flex">
+                            <img src="/Assets/images/@Model.Hinhminhhoa" alt="product_image">
+                            <div>
+                                <h3>@Model.Tensach</h3>
+                                <span>Số lượng: ${ quantity }</span><br />
+                                <span>Đơn giá: @(Model.Giakm == null ? Model.Dongia + "đ" : Model.Giakm + "đ")</span>
+                            </div>
+                        </div>
+                    `
+                $.ajax({
+                    url: '/ChiTietSach/AddToCart',
+                    data: { productID: @Model.Masach, quantity },
+                    method: 'POST',
+                    dataType: 'text',
+                    success: function (response) {
+                        response = JSON.parse(response)
+                        if (response.status === true) {
+                            $('#addProductSuccess').html(contentString)
+                            $('#modalAddToCart').modal('show')
+                        } else {
+                            alert('Thêm thất bại')
+                        }
+                    }
+                })
+            })
+        </script>
+    }
+    else
+    {
+        <script>
+            $('#addToCart').click(e => {
+                e.preventDefault()
+                $('#modalLogin').modal('show')
+            })
+        </script>
+    }
+}
 

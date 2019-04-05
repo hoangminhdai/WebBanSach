@@ -5,6 +5,7 @@
 }
 
 @using WebBanSach.Models.EF
+@model IEnumerable<Sach>
 
 <!-- start main -->
 <div class="main_bg">
@@ -16,12 +17,6 @@
                     <ul id="filters" class="clearfix">
                         @{
                             var lstDanhMuc = ViewBag.ListDanhMuc as IEnumerable<Chude>;
-                            string keyAll = "";
-                            foreach (var item in lstDanhMuc)
-                            {
-                                keyAll += item.Key + " ";
-                            }
-                            <li><span class="filter active" data-filter="@keyAll">Tất cả</span></li>
                             foreach (var item in lstDanhMuc)
                             {
                             <li><span class="filter" data-filter="@item.Key">@item.Tenchude</span></li>
@@ -29,7 +24,7 @@
                         }
                     </ul>
                     <div id="portfoliolist">
-                        @foreach (var item in ViewBag.ListSach as IEnumerable<Sach>)
+                        @foreach (Sach item in Model)
                         {
                             var @donGia = @item.Dongia + "đ";
                             var @giaKm = @item.Giakm + "đ";

@@ -16,8 +16,17 @@ namespace WebBanSach.Controllers
             List<Sach> lstSachNoiBat = db.Saches.Where(item => item.Ngaycapnhat == new DateTime(2019, 04, 03)).ToList();
 
             ViewBag.ListSachMoi = lstSachMoi;
-            ViewBag.ListSachNoiBat = lstSachNoiBat;
-            return View();
+            return View(lstSachNoiBat);
+        }
+
+        [HttpPost]
+        public ActionResult TimKiem(string searchText)
+        {
+            List<Sach> lstSachMoi = db.Saches.Where(item => item.Ngaycapnhat == new DateTime(2019, 04, 02)).ToList();
+            ViewBag.ListSachMoi = lstSachMoi;
+
+            var listSach = db.Saches.Where(item => item.Tensach.Contains(searchText)).ToList();
+            return View("Index", listSach);
         }
     }
 }
