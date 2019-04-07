@@ -3483,7 +3483,7 @@
     <Content Include="Areas\AdminSite\Views\AdminQuanLyKhachHang\ThemKhachHang.cshtml" />
     <Content Include="Areas\AdminSite\Views\AdminQuanLyKhachHang\SuaKhachHang.cshtml" />
     <Content Include="Areas\AdminSite\Views\AdminQuanLySach\TatCaSach.cshtml" />
-    <Content Include="Areas\AdminSite\Views\AdminQuanLySach\ThemSach.cshtml" />
+    <Content Include="Areas\AdminSite\Views\AdminQuanLySach\ViewThemSach.cshtml" />
     <Content Include="Areas\AdminSite\Views\AdminQuanLySach\SuaSach.cshtml" />
     <Content Include="Areas\AdminSite\Views\AdminTrangChu\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />

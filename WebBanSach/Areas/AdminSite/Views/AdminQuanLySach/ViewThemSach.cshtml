@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewBag.Title = "ThemSach";
+    Layout = "~/Areas/AdminSite/Views/Shared/AdminLayout.cshtml";
+}
+@using WebBanSach.Models.EF
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Thêm sách</h3>
+                </div>
+                <div class="card-body card-block">
+                    <form action="@Url.Action("ThemSach", "AdminQuanLySach")" method="post" enctype="multipart/form-data" class="form-horizontal">
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="text-input" class=" form-control-label">Tên sách</label></div>
+                            <div class="col-12 col-md-7"><input type="text" id="text-input" name="TenSach" placeholder="Tên sách" class="form-control"></div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="selectLg" class=" form-control-label">Tác giả</label></div>
+                            <div class="col-12 col-md-4">
+                                <select name="TacGia" id="selectLg" class="form-control">
+                                    <option value="">Tác giả</option>
+                                    @foreach (var tacgia in (ViewBag.TatCaTacGia as IEnumerable<Tacgia>))
+                                    {
+                                        <option value="@tacgia.Matacgia">@tacgia.Tentacgia</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="selectLg" class=" form-control-label">Chủ đề sách</label></div>
+                            <div class="col-12 col-md-4">
+                                <select name="ChuDe" id="selectLg" class="form-control">
+                                     <option value="">Chủ đề</option>
+                                     @foreach (var chude in (ViewBag.TatCaChuDe as IEnumerable<Chude>))
+                                     {
+                                        <option value="@chude.Macd">@chude.Tenchude</option>
+                                     }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="NXB" class=" form-control-label">Nhà xuất bản</label></div>
+                            <div class="col-12 col-md-4">
+                                <select name="selectLg" id="selectLg" class="form-control">
+                                    <option value="">Nhà xuất bản</option>
+                                    @foreach (var nxb in (ViewBag.TatCaNXB as IEnumerable<Nhaxuatban>))
+                                    {
+                                        <option value="@nxb.Manxb">@nxb.Tennxb</option>
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="text-input" class=" form-control-label">Giá</label></div>
+                            <div class="col-12 col-md-4"><input type="number" id="text-input" name="Gia" placeholder="20000" class="form-control"></div>
+                            <div class="col-md-3">VNĐ</div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="text-input" class=" form-control-label">Giảm giá</label></div>
+                            <div class="col-12 col-md-4"><input type="number" id="text-input" name="GiamGia" placeholder="15000" class="form-control"></div>
+                            <div class="col-md-3">VNĐ</div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="text-input" class=" form-control-label">Số lượng</label></div>
+                            <div class="col-12 col-md-4"><input type="number" id="text-input" name="SoLuong" placeholder="20000" class="form-control"></div>
+                            <div class="col-md-3">quyển</div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Mô tả</label></div>
+                            <div class="col-12 col-md-7">
+                                <textarea name="textarea-input" id="textarea-input" rows="9" class="form-control" placeholder="Mô tả" name="MoTa"></textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="text-input" class=" form-control-label">Mô tả ngắn gọn</label></div>
+                            <div class="col-12 col-md-7"><input type="text" id="text-input" name="MoTaNganGon" placeholder="Mô tả ngắn gọn" class="form-control"></div>
+                        </div>
+                        <div class="page-header" style="padding: 0 0 0 0;">
+                            <h3>Ảnh minh họa</h3>
+                            <hr>
+                            <img class="img-thumbnail" src="http://placehold.it/400x400" alt="" id="displayImg">
+                        </div>
+                        <fieldset class="form-group">
+                            <input type="file" class="form-control-file" id="image" name="AnhminhHoa" onchange="onFileSelected(event)">
+                        </fieldset>
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="fa fa-dot-circle-o"></i> Thêm
+                        </button>
+                        <button type="reset" class="btn btn-danger btn-sm" onclick="btnCancel()">
+                            <i class="fa fa-ban"></i> Hủy
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+	function onFileSelected(event) {
+		var selectedFile = event.target.files[0];
+		var reader = new FileReader();
+
+		var imgtag = document.getElementById("displayImg");
+		imgtag.title = selectedFile.name;
+
+		reader.onload = function(event) {
+			imgtag.src = event.target.result;
+		};
+		reader.readAsDataURL(selectedFile);
+	}
+	function btnCancel() {
+		document.getElementById('displayImg').src ='http://placehold.it/400x400';
+	}
+</script>
