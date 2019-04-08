@@ -1,0 +1,130 @@
+﻿
+@{
+    ViewBag.Title = "SuaSach";
+    Layout = "~/Areas/AdminSite/Views/Shared/AdminLayout.cshtml";
+}
+@using WebBanSach.Models.EF
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Thêm sách</h3>
+                </div>
+                <div class="card-body card-block">
+                    <form action="@Url.Action("SuaSach", "AdminQuanLySach")" method="post" enctype="multipart/form-data" class="form-horizontal" id="FormAdd">
+                        <div class="row form-group">
+                            <div><input type="text" hidden id="text-input"  name="Masach" placeholder="Tên sách" class="form-control" value="@ViewBag.sach.Masach"></div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="text-input" class=" form-control-label">Tên sách</label></div>
+                            <div class="col-12 col-md-7"><input type="text" id="text-input" name="TenSach" placeholder="Tên sách" class="form-control" value="@ViewBag.sach.Tensach"></div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="selectLg" class=" form-control-label">Tác giả</label></div>
+                            <div class="col-12 col-md-4">
+                                <select name="TacGia" id="selectLg" class="form-control">
+                                    @foreach (var tacgia in (ViewBag.TatCaTacGia as IEnumerable<Tacgia>))
+                                    {
+                                        if (@ViewBag.sach.Matacgia == tacgia.Matacgia)
+                                        {
+                                            <option value="@tacgia.Matacgia" selected>@tacgia.Tentacgia</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@tacgia.Matacgia">@tacgia.Tentacgia</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="selectLg" class=" form-control-label">Chủ đề sách</label></div>
+                            <div class="col-12 col-md-4">
+                                <select name="ChuDe" id="selectLg" class="form-control">
+                                    @foreach (var chude in (ViewBag.TatCaChuDe as IEnumerable<Chude>))
+                                    {
+                                        if (@ViewBag.sach.Macd == chude.Macd)
+                                        {
+                                            <option value="@chude.Macd" selected>@chude.Tenchude</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@chude.Macd">@chude.Tenchude</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="NXB" class=" form-control-label">Nhà xuất bản</label></div>
+                            <div class="col-12 col-md-4">
+                                <select name="NXB" id="selectLg" class="form-control">
+                                    @foreach (var nxb in (ViewBag.TatCaNXB as IEnumerable<Nhaxuatban>))
+                                    {
+                                        if (@ViewBag.sach.Manxb == nxb.Manxb)
+                                        {
+                                            <option value="@nxb.Manxb" selected>@nxb.Tennxb</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@nxb.Manxb">@nxb.Tennxb</option>
+                                        }
+
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="text-input" class=" form-control-label">Giá</label></div>
+                            <div class="col-12 col-md-4"><input type="number" id="text-input" name="Gia" placeholder="20000" class="form-control" value="@ViewBag.sach.Dongia"></div>
+                            <div class="col-md-3">VNĐ</div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="text-input" class=" form-control-label">Giảm giá</label></div>
+                            <div class="col-12 col-md-4"><input type="number" id="text-input" name="GiamGia" placeholder="15000" class="form-control" value="@ViewBag.sach.Giakm"></div>
+                            <div class="col-md-3">VNĐ</div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="text-input" class=" form-control-label">Số lượng</label></div>
+                            <div class="col-12 col-md-4"><input type="number" id="text-input" name="SoLuong" placeholder="20000" class="form-control" value="@ViewBag.sach.Soluong"></div>
+                            <div class="col-md-3">quyển</div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Mô tả</label></div>
+                            <div class="col-12 col-md-7">
+                                <textarea id="textarea-input" rows="9" class="form-control" placeholder="Mô tả" name="MoTa">@ViewBag.sach.Mota</textarea>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Mô tả ngắn gọn</label></div>
+                            <div class="col-12 col-md-7">
+                                <textarea id="textarea-input" rows="2" class="form-control" placeholder="Mô tả ngắn gọn" name="MoTaNganGon">@ViewBag.sach.Motangangon</textarea>
+                            </div>
+                        </div>
+                        <div class="page-header" style="padding: 0 0 0 0;">
+                            <h3>Ảnh minh họa</h3>
+                            <hr>
+                            <img class="img-thumbnail" src="~/Assets/images/@ViewBag.sach.Hinhminhhoa" alt="" id="displayImg">
+                        </div>
+                        <fieldset class="form-group">
+                            <input type="file" class="form-control-file" id="image" name="AnhminhHoa" onchange="onFileSelected(event)">
+                        </fieldset>
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="fa fa-dot-circle-o"></i> Thêm
+                        </button>
+                        <button type="reset" class="btn btn-danger btn-sm" onclick="btnCancel()">
+                            <i class="fa fa-ban"></i> Hủy
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Areas/AdminSite/assets/js/ThemSach.js"></script>
+
+
+
