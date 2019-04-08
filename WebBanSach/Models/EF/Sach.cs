@@ -1,4 +1,4 @@
-namespace WebBanSach.Models.EF
+﻿namespace WebBanSach.Models.EF
 {
     using System;
     using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace WebBanSach.Models.EF
         [Key]
         public int Masach { get; set; }
 
-        [StringLength(200)]
+        [StringLength(200), Required(ErrorMessage ="Phải nhập tên sách")]
         public string Tensach { get; set; }
 
         public decimal? Giakm { get; set; }

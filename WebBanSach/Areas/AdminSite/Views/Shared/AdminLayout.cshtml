@@ -7,15 +7,15 @@
 
     <link rel="apple-touch-icon" href="apple-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
+    <script src="~/Areas/AdminSite/vendor/jquery/dist/jquery.min.js"></script>
+
     <link href="~/Areas/AdminSite/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Areas/AdminSite/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Areas/AdminSite/vendor/themify-icons/css/themify-icons.css" rel="stylesheet" />
     <link href="~/Areas/AdminSite/vendor/flag-icon-css/css/flag-icon.min.css" rel="stylesheet" />
     <link href="~/Areas/AdminSite/vendor/selectFX/css/cs-skin-elastic.css" rel="stylesheet" />
     <link href="~/Areas/AdminSite/assets/css/style.css" rel="stylesheet" />
-
     <script src="~/Scripts/umd/popper.min.js"></script>
-    <script src="~/Areas/AdminSite/vendor/jquery/dist/jquery.min.js"></script>
     <script src="~/Areas/AdminSite/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 </head>
@@ -44,7 +44,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Quản lí sản phẩm</a>
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-puzzle-piece"></i><a href="@Url.Action("TatCaSach","AdminQuanLySach")">Tất cả sách</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="@Url.Action("ThemSach","AdminQuanLySach")">Thêm sách</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="@Url.Action("ViewThemSach","AdminQuanLySach")">Thêm sách</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">

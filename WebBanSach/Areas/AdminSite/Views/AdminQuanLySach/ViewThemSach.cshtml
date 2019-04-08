@@ -12,7 +12,8 @@
                     <h3>Thêm sách</h3>
                 </div>
                 <div class="card-body card-block">
-                    <form action="@Url.Action("ThemSach", "AdminQuanLySach")" method="post" enctype="multipart/form-data" class="form-horizontal">
+                    <form action="@Url.Action("ThemSach", "AdminQuanLySach")" method="post" enctype="multipart/form-data" class="form-horizontal" id="FormAdd">
+                        @Html.ValidationSummary()
                         <div class="row form-group">
                             <div class="col col-md-3"><label for="text-input" class=" form-control-label">Tên sách</label></div>
                             <div class="col-12 col-md-7"><input type="text" id="text-input" name="TenSach" placeholder="Tên sách" class="form-control"></div>
@@ -21,7 +22,6 @@
                             <div class="col col-md-3"><label for="selectLg" class=" form-control-label">Tác giả</label></div>
                             <div class="col-12 col-md-4">
                                 <select name="TacGia" id="selectLg" class="form-control">
-                                    <option value="">Tác giả</option>
                                     @foreach (var tacgia in (ViewBag.TatCaTacGia as IEnumerable<Tacgia>))
                                     {
                                         <option value="@tacgia.Matacgia">@tacgia.Tentacgia</option>
@@ -33,7 +33,6 @@
                             <div class="col col-md-3"><label for="selectLg" class=" form-control-label">Chủ đề sách</label></div>
                             <div class="col-12 col-md-4">
                                 <select name="ChuDe" id="selectLg" class="form-control">
-                                     <option value="">Chủ đề</option>
                                      @foreach (var chude in (ViewBag.TatCaChuDe as IEnumerable<Chude>))
                                      {
                                         <option value="@chude.Macd">@chude.Tenchude</option>
@@ -44,8 +43,7 @@
                         <div class="row form-group">
                             <div class="col col-md-3"><label for="NXB" class=" form-control-label">Nhà xuất bản</label></div>
                             <div class="col-12 col-md-4">
-                                <select name="selectLg" id="selectLg" class="form-control">
-                                    <option value="">Nhà xuất bản</option>
+                                <select name="NXB" id="selectLg" class="form-control">
                                     @foreach (var nxb in (ViewBag.TatCaNXB as IEnumerable<Nhaxuatban>))
                                     {
                                         <option value="@nxb.Manxb">@nxb.Tennxb</option>
@@ -56,28 +54,30 @@
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3"><label for="text-input" class=" form-control-label">Giá</label></div>
-                            <div class="col-12 col-md-4"><input type="number" id="text-input" name="Gia" placeholder="20000" class="form-control"></div>
+                            <div class="col-12 col-md-4"><input type="number" id="text-input" name="Gia" placeholder="nhập giá" class="form-control"></div>
                             <div class="col-md-3">VNĐ</div>
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3"><label for="text-input" class=" form-control-label">Giảm giá</label></div>
-                            <div class="col-12 col-md-4"><input type="number" id="text-input" name="GiamGia" placeholder="15000" class="form-control"></div>
+                            <div class="col-12 col-md-4"><input type="number" id="text-input" name="GiamGia" placeholder="nhập giảm giá" class="form-control"></div>
                             <div class="col-md-3">VNĐ</div>
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3"><label for="text-input" class=" form-control-label">Số lượng</label></div>
-                            <div class="col-12 col-md-4"><input type="number" id="text-input" name="SoLuong" placeholder="20000" class="form-control"></div>
+                            <div class="col-12 col-md-4"><input type="number" id="text-input" name="SoLuong" placeholder="nhập số lượng" class="form-control"></div>
                             <div class="col-md-3">quyển</div>
                         </div>
                         <div class="row form-group">
                             <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Mô tả</label></div>
                             <div class="col-12 col-md-7">
-                                <textarea name="textarea-input" id="textarea-input" rows="9" class="form-control" placeholder="Mô tả" name="MoTa"></textarea>
+                                <textarea id="textarea-input" rows="9" class="form-control" placeholder="Mô tả" name="MoTa"></textarea>
                             </div>
                         </div>
                         <div class="row form-group">
-                            <div class="col col-md-3"><label for="text-input" class=" form-control-label">Mô tả ngắn gọn</label></div>
-                            <div class="col-12 col-md-7"><input type="text" id="text-input" name="MoTaNganGon" placeholder="Mô tả ngắn gọn" class="form-control"></div>
+                            <div class="col col-md-3"><label for="textarea-input" class=" form-control-label">Mô tả ngắn gọn</label></div>
+                            <div class="col-12 col-md-7">
+                                <textarea id="textarea-input" rows="2" class="form-control" placeholder="Mô tả ngắn gọn" name="MoTaNganGon"></textarea>
+                            </div>
                         </div>
                         <div class="page-header" style="padding: 0 0 0 0;">
                             <h3>Ảnh minh họa</h3>
@@ -100,20 +100,4 @@
     </div>
 </div>
 
-<script type="text/javascript">
-	function onFileSelected(event) {
-		var selectedFile = event.target.files[0];
-		var reader = new FileReader();
-
-		var imgtag = document.getElementById("displayImg");
-		imgtag.title = selectedFile.name;
-
-		reader.onload = function(event) {
-			imgtag.src = event.target.result;
-		};
-		reader.readAsDataURL(selectedFile);
-	}
-	function btnCancel() {
-		document.getElementById('displayImg').src ='http://placehold.it/400x400';
-	}
-</script>
+<script src="~/Areas/AdminSite/assets/js/ThemSach.js"></script>
