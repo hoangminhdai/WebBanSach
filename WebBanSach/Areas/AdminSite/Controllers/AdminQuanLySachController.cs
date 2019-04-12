@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebBanSach.Models.EF;
-
+using PagedList;
 namespace WebBanSach.Areas.AdminSite.Controllers
 {
     public class AdminQuanLySachController : Controller
@@ -13,14 +13,16 @@ namespace WebBanSach.Areas.AdminSite.Controllers
         QuanLyBanSachDbContext db = new QuanLyBanSachDbContext();
 
         // GET: AdminSite/AdminQuanLySach
-        public ActionResult TatCaSach()
+        public ActionResult TatCaSach( int page = 1, int pageSize = 10)
         {
             var TatCaSach = db.Saches.Join(db.Nhaxuatbans, sach => sach.Manxb, nxb => nxb.Manxb, (sach, nxb) => sach)
                                       .Join(db.Chudes, sach => sach.Macd, chude => chude.Macd, (sach, chude) => sach)
                                       .Join(db.Tacgias, sach => sach.Matacgia, tacgia => tacgia.Matacgia, (sach, tacgia) => sach)
-                                      .ToList();
-            ViewBag.TatCaSach = TatCaSach;
-            return View();
+                                      .OrderByDescending(sach => sach.Masach)
+                                      .ToPagedList(page, pageSize);
+            //List<Sach> TatCaSach = db.Saches.ToList();
+            //ViewBag.TatCaSach = TatCaSach;
+            return View(TatCaSach);
         }
         public ActionResult ThemSach()
         {

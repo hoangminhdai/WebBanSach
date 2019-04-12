@@ -4,7 +4,8 @@
     Layout = "~/Areas/AdminSite/Views/Shared/AdminLayout.cshtml";
 }
 @using WebBanSach.Models.EF
-@model IEnumerable<Sach>
+@model PagedList.IPagedList<Sach>
+@using PagedList.Mvc;
 <div class="container">
     <div class="row">
         <div class="animated fadeIn">
@@ -28,20 +29,6 @@
                 <div class="card-header col-sm-1 btn-add">
                     <a class="btn btn-success" href="@Url.Action("ThemSach","AdminQuanLySach")"><i class="fa fa-plus" aria-hidden="true"></i></a>
                 </div>
-                @{
-                    if (Session["XoaSachThanhCong"] != null)
-                    {
-                            <div class="alert alert-primary" role="alert">
-                                @Session["XoaSachThanhCong"]
-                            </div>
-                    }
-                    if (Session["XoaSachThatBai"] != null)
-                    {
-                        <div class="alert alert-danger" role="alert">
-                            @Session["XoaSachThatBai"]
-                        </div>
-                    }
-                }
                 <div class="col-md-12">
                     <div class="table-responsive">
                         <table id="mytable" class="table table-bordred table-striped">
@@ -58,7 +45,7 @@
                             <th>Xóa</th>
                             </thead>
                             <tbody>
-                                @foreach (var sach in (ViewBag.TatCaSach as IEnumerable<Sach>))
+                                @foreach (var sach in (@Model as IEnumerable<Sach>))
                                 {
                                     var @DonGia = @sach.Dongia != null ? @sach.Dongia  : 0;
                                     var @GiaKM = @sach.Giakm != null ? @sach.Giakm  : 0;
@@ -97,6 +84,14 @@
                                 }
                             </tbody>
                         </table>
+                        <nav aria-label="Page navigation example">
+                            @Html.PagedListPager(
+                                                 Model,
+                                                 page => Url.Action("TatCaSach", new { page, @class = "pagination" }),
+                                                 new PagedListRenderOptions() {
+                                                     LiElementClasses = new string[] { "page-item" }
+                                                 })
+                        </nav>
                     </div>
 
                 </div>
@@ -106,7 +101,6 @@
 </div>
 
 
-<!-- modal confirm-->
 <!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
@@ -152,4 +146,5 @@
             })
         })
     });
+    $(".pagination .page-item a").addClass("page-link");
 </script>

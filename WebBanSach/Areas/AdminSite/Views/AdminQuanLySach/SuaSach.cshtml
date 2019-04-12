@@ -120,9 +120,9 @@
                         <button type="submit" class="btn btn-primary btn-sm">
                             <i class="fa fa-dot-circle-o"></i> Sửa
                         </button>
-                        <button type="reset" class="btn btn-danger btn-sm" onclick="btnCancel()">
+                        <a type="button" class="btn btn-danger btn-sm" href="@Url.Action("TatCaSach", "AdminQuanLySach")">
                             <i class="fa fa-ban"></i> Hủy
-                        </button>
+                        </a>
                     </form>
                 </div>
             </div>
@@ -142,10 +142,6 @@
             imgtag.src = event.target.result;
         };
         reader.readAsDataURL(selectedFile);
-    }
-    // lấy lại ảnh mặc định khi bấm nút hủy
-    const btnCancel = () => {
-        document.getElementById('displayImg').src = 'http://placehold.it/400x400';
     }
     // validate dữ liệu trước khi submit
     const validateForm = () => {
