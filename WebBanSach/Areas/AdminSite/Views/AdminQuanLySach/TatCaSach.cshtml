@@ -26,7 +26,7 @@
                     </form>
                 </div>
                 <div class="card-header col-sm-1 btn-add">
-                    <a class="btn btn-success" href="@Url.Action("ViewThemSach","AdminQuanLySach")"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                    <a class="btn btn-success" href="@Url.Action("ThemSach","AdminQuanLySach")"><i class="fa fa-plus" aria-hidden="true"></i></a>
                 </div>
                 @{
                     if (Session["XoaSachThanhCong"] != null)
@@ -72,7 +72,7 @@
                                         <td>@sach.Soluong</td>
                                         <td>
                                             <p data-placement="top" data-toggle="tooltip" title="Edit">
-                                                <a href="@Url.Action("ViewSuaSach","AdminQuanLySach",new { MaSach = @sach.Masach })">
+                                                <a href="@Url.Action("SuaSach","AdminQuanLySach",new { MaSach = @sach.Masach })">
                                                 <button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit">
                                                     <span class="fa fa-edit"></span>
                                                 </button>
@@ -129,4 +129,27 @@
     </div>
 </div>
 
-<script src="~/Areas/AdminSite/assets/js/Sach.js"></script>
+<script>
+    // xóa sách
+    $('#myModal').on('show.bs.modal', (e) => {
+        const link = e.relatedTarget;
+        let MaSach = parseInt(jQuery(link).attr('id'));
+        jQuery('#btnDelete').click(() => {
+            jQuery.ajax({
+                url: '/AdminQuanLySach/XoaSach',
+                method: 'POST',
+                data: { MaSach },
+                dataType: 'text',
+                success: (response) => {
+                    response = JSON.parse(response)
+                    if (response.status == true) {
+                        jQuery('#myModal').modal('hide');
+                        location.reload();
+                    } else {
+                        alert('Xóa sản phẩm thất bại!')
+                    }
+                }
+            })
+        })
+    });
+</script>

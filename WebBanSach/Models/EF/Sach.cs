@@ -22,6 +22,7 @@
         public string Tensach { get; set; }
 
         public decimal? Giakm { get; set; }
+        [Required(ErrorMessage = "Phải nhập giá sách")]
         public int? Dongia { get; set; }
 
         [StringLength(10)]
@@ -32,16 +33,17 @@
 
         [StringLength(200)]
         public string Hinhminhhoa { get; set; }
-
+        [Required(ErrorMessage = "Phải nhập chủ đề")]
         public int? Macd { get; set; }
-
+        [Required(ErrorMessage = "Phải nhập nhà xuất bản")]
         public int? Manxb { get; set; }
 
         [Column(TypeName = "smalldatetime")]
         public DateTime? Ngaycapnhat { get; set; }
 
+        [Required(ErrorMessage = "Phải nhập tác giả")]
         public int? Matacgia { get; set; }
-
+        [Range(0,int.MaxValue,ErrorMessage ="Số lượng phải lớn hơn hoặc bằng 0"),Required(ErrorMessage = "Phải nhập số lượng")]
         public int? Soluong { get; set; }
 
         [Column(TypeName = "ntext")]

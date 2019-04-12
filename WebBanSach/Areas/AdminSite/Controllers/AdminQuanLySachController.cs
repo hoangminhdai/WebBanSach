@@ -22,7 +22,7 @@ namespace WebBanSach.Areas.AdminSite.Controllers
             ViewBag.TatCaSach = TatCaSach;
             return View();
         }
-        public ActionResult ViewThemSach()
+        public ActionResult ThemSach()
         {
             var TatCaChuDe = db.Chudes.ToList();
             var TatCaTacGia = db.Tacgias.ToList();
@@ -33,35 +33,36 @@ namespace WebBanSach.Areas.AdminSite.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult ThemSach(string TenSach, int TacGia, int ChuDe, int NXB, int Gia, int GiamGia, int SoLuong, string MoTa, string MoTaNganGon, HttpPostedFileBase AnhminhHoa)
+        public ActionResult ThemSach(Sach sach, HttpPostedFileBase Hinhminhhoa)
         {
-            Sach sach = new Sach();
-            sach.Tensach = TenSach;
-            sach.Matacgia = TacGia;
-            sach.Macd = ChuDe;
-            sach.Manxb = NXB;
-            sach.Dongia = Gia;
-            sach.Giakm = GiamGia;
-            sach.Soluong = SoLuong;
-            sach.Mota = MoTa;
-            sach.Motangangon = MoTaNganGon;
-            sach.Donvitinh = "VNĐ";
-            if (AnhminhHoa.ContentLength > 0)
+            if (ModelState.IsValid)
             {
-                var TenAnh = Path.GetFileName(AnhminhHoa.FileName);
-                var DuongDan = Path.Combine(Server.MapPath("~/Assets/images/"), TenAnh);
-                sach.Hinhminhhoa = TenAnh;
-                AnhminhHoa.SaveAs(DuongDan);
+                sach.Donvitinh = "VNĐ";
+                if (Hinhminhhoa != null && Hinhminhhoa.ContentLength > 0)
+                {
+                    var TenAnh = Path.GetFileName(Hinhminhhoa.FileName);
+                    var DuongDan = Path.Combine(Server.MapPath("~/Assets/images/"), TenAnh);
+                    sach.Hinhminhhoa = TenAnh;
+                    Hinhminhhoa.SaveAs(DuongDan);
+                }
+                else
+                {
+                    sach.Hinhminhhoa = "400x400.PNG";
+                }
+                db.Saches.Add(sach);
+                db.SaveChanges();
+                return RedirectToAction("TatCaSach");
             } else
             {
-                sach.Hinhminhhoa = "http://placehold.it/400x400";
+                ViewBag.TatCaChuDe = db.Chudes.ToList(); ;
+                ViewBag.TatCaTacGia = db.Tacgias.ToList();
+                ViewBag.TatCaNXB = db.Nhaxuatbans.ToList();
+                return View(sach);
             }
-            db.Saches.Add(sach);
-            db.SaveChanges();
-            return RedirectToAction("TatCaSach");
+
             
         }
-        public ActionResult ViewSuaSach(int MaSach)
+        public ActionResult SuaSach(int MaSach)
         {
             var TatCaChuDe = db.Chudes.ToList();
             var TatCaTacGia = db.Tacgias.ToList();
@@ -80,35 +81,22 @@ namespace WebBanSach.Areas.AdminSite.Controllers
             sach.Giakm = sach.Giakm != null ? sach.Giakm : 0;
             sach.Mota = sach.Mota != null ? sach.Mota : "không có mô tả";
             sach.Motangangon = sach.Motangangon != null ? sach.Motangangon : "không có mô tả";
-            ViewBag.sach = sach;
-            return View();
+            return View(sach);
         }
-        public ActionResult SuaSach(int Masach, string TenSach, int TacGia, int ChuDe, int NXB, int Gia, int GiamGia, int SoLuong, string MoTa, string MoTaNganGon, HttpPostedFileBase AnhminhHoa)
+        [HttpPost]
+        public ActionResult SuaSach(Sach sach, HttpPostedFileBase Hinhminhhoa)
         {
 
-            Sach sach = db.Saches.Find(Masach);
-            sach.Tensach = TenSach;
-            sach.Matacgia = TacGia;
-            sach.Macd = ChuDe;
-            sach.Manxb = NXB;
-            sach.Dongia = Gia;
-            sach.Giakm = GiamGia;
-            sach.Soluong = SoLuong;
-            sach.Mota = MoTa;
-            sach.Motangangon = MoTaNganGon;
-            if (AnhminhHoa.ContentLength > 0)
+            if (Hinhminhhoa != null && Hinhminhhoa.ContentLength > 0)
             {
-                var TenAnh = Path.GetFileName(AnhminhHoa.FileName);
+                var TenAnh = Path.GetFileName(Hinhminhhoa.FileName);
                 var DuongDan = Path.Combine(Server.MapPath("~/Assets/images/"), TenAnh);
                 sach.Hinhminhhoa = TenAnh;
-                AnhminhHoa.SaveAs(DuongDan);
-            }
-            else
-            {
-                sach.Hinhminhhoa = "http://placehold.it/400x400";
+                Hinhminhhoa.SaveAs(DuongDan);
             }
             sach.Donvitinh = "VNĐ";
-            db.Entry(sach).CurrentValues.SetValues(sach);
+            var sachcu = db.Saches.Find(sach.Masach);
+            db.Entry(sachcu).CurrentValues.SetValues(sach);
             db.SaveChanges();
             return RedirectToAction("TatCaSach");
 

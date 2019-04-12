@@ -177,8 +177,6 @@
     <Content Include="Areas\AdminSite\assets\js\init-scripts\peitychart\peitychart.init.js" />
     <Content Include="Areas\AdminSite\assets\js\init-scripts\vector-map\vector.init.js" />
     <Content Include="Areas\AdminSite\assets\js\main.js" />
-    <Content Include="Areas\AdminSite\assets\js\Sach.js" />
-    <Content Include="Areas\AdminSite\assets\js\ThemSach.js" />
     <Content Include="Areas\AdminSite\assets\js\widgets.js" />
     <Content Include="Areas\AdminSite\images\.gitignore" />
     <Content Include="Areas\AdminSite\images\admin.jpg" />
@@ -3485,8 +3483,8 @@
     <Content Include="Areas\AdminSite\Views\AdminQuanLyKhachHang\ThemKhachHang.cshtml" />
     <Content Include="Areas\AdminSite\Views\AdminQuanLyKhachHang\SuaKhachHang.cshtml" />
     <Content Include="Areas\AdminSite\Views\AdminQuanLySach\TatCaSach.cshtml" />
-    <Content Include="Areas\AdminSite\Views\AdminQuanLySach\ViewThemSach.cshtml" />
-    <Content Include="Areas\AdminSite\Views\AdminQuanLySach\ViewSuaSach.cshtml" />
+    <Content Include="Areas\AdminSite\Views\AdminQuanLySach\ThemSach.cshtml" />
+    <Content Include="Areas\AdminSite\Views\AdminQuanLySach\SuaSach.cshtml" />
     <Content Include="Areas\AdminSite\Views\AdminTrangChu\Index.cshtml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
