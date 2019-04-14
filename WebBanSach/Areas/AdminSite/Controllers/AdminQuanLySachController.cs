@@ -6,35 +6,40 @@ using System.Web;
 using System.Web.Mvc;
 using WebBanSach.Models.EF;
 using PagedList;
+using WebBanSach.Models.Common;
+
 namespace WebBanSach.Areas.AdminSite.Controllers
 {
     public class AdminQuanLySachController : Controller
     {
         QuanLyBanSachDbContext db = new QuanLyBanSachDbContext();
-
         // GET: AdminSite/AdminQuanLySach
-        public ActionResult TatCaSach( int page = 1, int pageSize = 10)
+        [HasCredential(Quyen = 1)]
+        public ActionResult TatCaSach( int trang = 1)
         {
-            var TatCaSach = db.Saches.Join(db.Nhaxuatbans, sach => sach.Manxb, nxb => nxb.Manxb, (sach, nxb) => sach)
-                                      .Join(db.Chudes, sach => sach.Macd, chude => chude.Macd, (sach, chude) => sach)
-                                      .Join(db.Tacgias, sach => sach.Matacgia, tacgia => tacgia.Matacgia, (sach, tacgia) => sach)
-                                      .OrderByDescending(sach => sach.Masach)
-                                      .ToPagedList(page, pageSize);
-            //List<Sach> TatCaSach = db.Saches.ToList();
-            //ViewBag.TatCaSach = TatCaSach;
-            return View(TatCaSach);
+                var TatCaSach = db.Saches.Join(db.Nhaxuatbans, sach => sach.Manxb, nxb => nxb.Manxb, (sach, nxb) => sach)
+                                          .Join(db.Chudes, sach => sach.Macd, chude => chude.Macd, (sach, chude) => sach)
+                                          .Join(db.Tacgias, sach => sach.Matacgia, tacgia => tacgia.Matacgia, (sach, tacgia) => sach)
+                                          .OrderByDescending(sach => sach.Masach)
+                                          .ToPagedList(trang, 10);
+                //List<Sach> TatCaSach = db.Saches.ToList();
+                //ViewBag.TatCaSach = TatCaSach;
+                return View(TatCaSach);
         }
+        [HasCredential(Quyen = 1)]
         public ActionResult ThemSach()
         {
-            var TatCaChuDe = db.Chudes.ToList();
-            var TatCaTacGia = db.Tacgias.ToList();
-            var TatCaNXB = db.Nhaxuatbans.ToList();
-            ViewBag.TatCaChuDe = TatCaChuDe;
-            ViewBag.TatCaTacGia = TatCaTacGia;
-            ViewBag.TatCaNXB = TatCaNXB;
-            return View();
+
+                var TatCaChuDe = db.Chudes.ToList();
+                var TatCaTacGia = db.Tacgias.ToList();
+                var TatCaNXB = db.Nhaxuatbans.ToList();
+                ViewBag.TatCaChuDe = TatCaChuDe;
+                ViewBag.TatCaTacGia = TatCaTacGia;
+                ViewBag.TatCaNXB = TatCaNXB;
+                return View();
         }
         [HttpPost]
+        [HasCredential(Quyen = 1)]
         public ActionResult ThemSach(Sach sach, HttpPostedFileBase Hinhminhhoa)
         {
             if (ModelState.IsValid)
@@ -51,6 +56,7 @@ namespace WebBanSach.Areas.AdminSite.Controllers
                 {
                     sach.Hinhminhhoa = "400x400.PNG";
                 }
+                sach.Ngaycapnhat = DateTime.Now;
                 db.Saches.Add(sach);
                 db.SaveChanges();
                 return RedirectToAction("TatCaSach");
@@ -64,6 +70,7 @@ namespace WebBanSach.Areas.AdminSite.Controllers
 
             
         }
+        [HasCredential(Quyen = 1)]
         public ActionResult SuaSach(int MaSach)
         {
             var TatCaChuDe = db.Chudes.ToList();
@@ -86,6 +93,7 @@ namespace WebBanSach.Areas.AdminSite.Controllers
             return View(sach);
         }
         [HttpPost]
+        [HasCredential(Quyen = 1)]
         public ActionResult SuaSach(Sach sach, HttpPostedFileBase Hinhminhhoa)
         {
 
@@ -97,6 +105,7 @@ namespace WebBanSach.Areas.AdminSite.Controllers
                 Hinhminhhoa.SaveAs(DuongDan);
             }
             sach.Donvitinh = "VNĐ";
+            sach.Ngaycapnhat = DateTime.Now; 
             var sachcu = db.Saches.Find(sach.Masach);
             db.Entry(sachcu).CurrentValues.SetValues(sach);
             db.SaveChanges();
@@ -104,6 +113,7 @@ namespace WebBanSach.Areas.AdminSite.Controllers
 
         }
         [HttpPost]
+        [HasCredential(Quyen = 1)]
         public JsonResult XoaSach(int MaSach)
         {
             try

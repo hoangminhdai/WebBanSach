@@ -1,7 +1,7 @@
-﻿
-@{
-    ViewBag.Title = "AdminDangNhap";
+﻿@{
+    Layout = null;
 }
+@model WebBanSach.Models.Common.UserLogin
 
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -45,14 +45,16 @@
                     </a>
                 </div>
                 <div class="login-form">
-                    <form>
+                    <form action="@Url.Action("Login","AdminDangNhap")" method="post" enctype="multipart/form-data">
+                        @Html.Hidden("returnUrl", @Request.QueryString)
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                         <div class="form-group">
                             <label>Địa chỉ email</label>
-                            <input type="email" class="form-control" placeholder="Email">
+                            <input type="email" class="form-control" placeholder="Email" name="Username">
                         </div>
                         <div class="form-group">
                             <label>Mật khẩu</label>
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input type="password" class="form-control" placeholder="Password" name="Password">
                         </div>
                         <div class="checkbox">
                             <label>
