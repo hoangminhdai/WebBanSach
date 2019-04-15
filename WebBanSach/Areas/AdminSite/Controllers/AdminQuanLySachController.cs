@@ -15,24 +15,39 @@ namespace WebBanSach.Areas.AdminSite.Controllers
         // GET: AdminSite/AdminQuanLySach
         public ActionResult TatCaSach( int page = 1, int pageSize = 10)
         {
-            var TatCaSach = db.Saches.Join(db.Nhaxuatbans, sach => sach.Manxb, nxb => nxb.Manxb, (sach, nxb) => sach)
-                                      .Join(db.Chudes, sach => sach.Macd, chude => chude.Macd, (sach, chude) => sach)
-                                      .Join(db.Tacgias, sach => sach.Matacgia, tacgia => tacgia.Matacgia, (sach, tacgia) => sach)
-                                      .OrderByDescending(sach => sach.Masach)
-                                      .ToPagedList(page, pageSize);
-            //List<Sach> TatCaSach = db.Saches.ToList();
-            //ViewBag.TatCaSach = TatCaSach;
-            return View(TatCaSach);
+            if(Session["ADMIN_SESSION"]!= null)
+            {
+                var TatCaSach = db.Saches.Join(db.Nhaxuatbans, sach => sach.Manxb, nxb => nxb.Manxb, (sach, nxb) => sach)
+                                          .Join(db.Chudes, sach => sach.Macd, chude => chude.Macd, (sach, chude) => sach)
+                                          .Join(db.Tacgias, sach => sach.Matacgia, tacgia => tacgia.Matacgia, (sach, tacgia) => sach)
+                                          .OrderByDescending(sach => sach.Masach)
+                                          .ToPagedList(page, pageSize);
+                //List<Sach> TatCaSach = db.Saches.ToList();
+                //ViewBag.TatCaSach = TatCaSach;
+                return View(TatCaSach);
+            }
+            else
+            {
+                return RedirectToAction("Index", "AdminDangNhap");
+            }
+
         }
         public ActionResult ThemSach()
         {
-            var TatCaChuDe = db.Chudes.ToList();
-            var TatCaTacGia = db.Tacgias.ToList();
-            var TatCaNXB = db.Nhaxuatbans.ToList();
-            ViewBag.TatCaChuDe = TatCaChuDe;
-            ViewBag.TatCaTacGia = TatCaTacGia;
-            ViewBag.TatCaNXB = TatCaNXB;
-            return View();
+            if (Session["ADMIN_SESSION"] != null)
+            {
+                var TatCaChuDe = db.Chudes.ToList();
+                var TatCaTacGia = db.Tacgias.ToList();
+                var TatCaNXB = db.Nhaxuatbans.ToList();
+                ViewBag.TatCaChuDe = TatCaChuDe;
+                ViewBag.TatCaTacGia = TatCaTacGia;
+                ViewBag.TatCaNXB = TatCaNXB;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "AdminDangNhap");
+            }
         }
         [HttpPost]
         public ActionResult ThemSach(Sach sach, HttpPostedFileBase Hinhminhhoa)
