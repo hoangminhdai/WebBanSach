@@ -10,6 +10,7 @@ namespace WebBanSach.Controllers
 {
     public class DangNhapController : Controller
     {
+        QuanLyBanSachDbContext db = new QuanLyBanSachDbContext();
         // GET: DangNhap
         public ActionResult Index()
         {
@@ -23,30 +24,19 @@ namespace WebBanSach.Controllers
             }
             
         }
-        public ActionResult postLogin(string email, string password)
-        {
-            Khachhang kh = new Khachhang();
-            kh.Email = "abc@gmail.com";
-            kh.Matkhau = "123";
-            if(email.Equals(kh.Email) && password.Equals(kh.Matkhau))
-            {
-                Session["user"] = kh;
-            }
-            return RedirectToAction("Index");
-        }
 
         public ActionResult Login(UserLogin user)
         {
             if (ModelState.IsValid)
             {
-                if (user.Username == "admin" && user.Password == "123456")
-                {
-                    var kh = new Khachhang() { Tendn = user.Username, Matkhau = user.Password };
-                    Session.Add("USER_SESSION", kh);
-                    return RedirectToAction("Index", "Home");
-                } else
+                Khachhang khachHang = db.Khachhangs.SingleOrDefault(item => item.Tendn == user.Username && item.Matkhau == user.Password);
+                if (khachHang == null)
                 {
                     ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng. Xin kiểm tra lại!");
+                } else
+                {
+                    Session.Add("USER_SESSION", khachHang);
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return View("Index");

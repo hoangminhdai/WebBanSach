@@ -21,6 +21,7 @@ namespace WebBanSach.Models.EF
         [StringLength(100)]
         public string Tenchude { get; set; }
 
+        [StringLength(30)]
         public string Key { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

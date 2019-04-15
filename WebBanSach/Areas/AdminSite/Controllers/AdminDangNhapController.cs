@@ -14,6 +14,7 @@ namespace WebBanSach.Areas.AdminSite.Controllers
         // GET: AdminSite/AdminDangNhap
         public ActionResult Index(string returnUrl)
         {
+<<<<<<< HEAD
             if (string.IsNullOrEmpty(returnUrl) && Request.UrlReferrer != null)
                 returnUrl = Server.UrlEncode(Request.UrlReferrer.PathAndQuery);
 
@@ -21,11 +22,15 @@ namespace WebBanSach.Areas.AdminSite.Controllers
             {
                 ViewBag.ReturnURL = returnUrl;
             }
+=======
+            ViewBag.ReturnUrl = returnUrl;
+>>>>>>> 06c00e65d6b5c922b5e25db1c8fb3e6c32ac9cf8
             return View();
         }
         [HttpPost]
         public ActionResult Login(UserLogin user, string returnUrl)
         {
+<<<<<<< HEAD
             string decodedUrl = "";
             if (ModelState.IsValid)
             {
@@ -41,6 +46,14 @@ namespace WebBanSach.Areas.AdminSite.Controllers
                             return Redirect(decodedUrl);
                         }
                     }
+=======
+            if (ModelState.IsValid)
+            {
+                Khachhang khachang = db.Khachhangs.SingleOrDefault(kh => kh.Tendn == user.Username && kh.Matkhau == user.Password);
+                if (khachang != null && khachang.Quyen == 1)
+                {
+                    Session.Add("ADMIN_SESSION", khachang);
+>>>>>>> 06c00e65d6b5c922b5e25db1c8fb3e6c32ac9cf8
                     return RedirectToAction("TatCaSach", "AdminQuanLySach");
                 }
             }

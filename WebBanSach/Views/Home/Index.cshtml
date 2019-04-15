@@ -72,96 +72,53 @@
     </div>
 </div>
 <!-- start main -->
-<div class="main_bg">
+<div class="container">
     <div class="wrap">
         <div class="main">
             <!-- start grids_of_3 -->
-            <div class="grids_of_3">
-                @foreach (Sach item in Model)
+            @{
+                int rowNumber = Model.Count() / 3 + 1;
+                for (int i = 0; i < rowNumber; i++)
                 {
-                    var @giacu = @item.Dongia != null ? @item.Dongia.ToString() + "đ" : "";
-                    var @giamoi = @item.Giakm != null ? @item.Giakm.ToString() + "đ" : "";
-                    <div class="grid1_of_3">
-                        <a href="/ChiTietSach/Index?ID=@item.Masach">
-                            <img src="~/Assets/images/@item.Hinhminhhoa" alt="" />
-                            <h3 style=" overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="@item.Tensach">@item.Tensach</h3>
-                            <div class="price">
-                                <h4>
-                                    @if (@giamoi != "")
-                                    {
-                                        <span>@giamoi</span>
-                                        <span style="text-decoration: line-through; font-size: 0.8em; margin-left: 5px;">@giacu</span>
-                                    }
-                                    else
-                                    {
-                                        <span>@giacu</span>
-                                    }
-                                    <span class="details">Chi tiết</span>
-                                </h4>
+                    <div class="grids_of_3">
+                        @for(int j = 0; j < 3; j++)
+                        {
+                            if (3 * i + j >= Model.Count())
+                            {
+                                break;
+                            }
+                            var @item = Model.ToList()[3 * i + j];
+                            var @giacu = item.Dongia != null ? item.Dongia.ToString() + "đ" : "";
+                            var @giamoi = item.Giakm != null ? item.Giakm.ToString() + "đ" : "";
+                            <div class="grid1_of_3">
+                                <a href="/ChiTietSach/Index?ID=item.Masach">
+                                    <img src="~/Assets/images/@item.Hinhminhhoa" alt="" style="width: 170px; height: 250px;" />
+                                    <h3 style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="@item.Tensach">@item.Tensach</h3>
+                                    <div class="price">
+                                        <h4 style="display: flex; align-items: center;">
+                                            @if (@giamoi != "")
+                                            {
+                                                <div style="width: 40%;">
+                                                    <span>@giamoi</span>
+                                                    <span style="text-decoration: line-through; font-size: 0.8em; margin-left: 5px;">@giacu</span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <span style="margin-left: 30px;">@giacu</span>
+                                            }
+                                            <span class="details">Chi tiết</span>
+                                        </h4>
+                                    </div>
+                                    <span class="b_btm"></span>
+                                </a>
                             </div>
-                            <span class="b_btm"></span>
-                        </a>
+                        }
+                        <div class="clear"></div>
                     </div>
                 }
-                @*@for (int i = 0; i < 3; i++)
-                {
-                    var @item = Model[i] as Sach;
-                    var @giacu = @item.Dongia != null ? @item.Dongia.ToString() + "đ" : "";
-                    var @giamoi = @item.Giakm != null ? @item.Giakm.ToString() + "đ" : "";
-                    <div class="grid1_of_3">
-                        <a href="/ChiTietSach/Index?ID=@item.Masach">
-                            <img src="~/Assets/images/@item.Hinhminhhoa" alt="" />
-                            <h3 style=" overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="@item.Tensach">@item.Tensach</h3>
-                            <div class="price">
-                                <h4>
-                                    @if (@giamoi != "")
-                                    {
-                                        <span>@giamoi</span>
-                                        <span style="text-decoration: line-through; font-size: 0.8em; margin-left: 5px;">@giacu</span>
-                                    }
-                                    else
-                                    {
-                                        <span>@giacu</span>
-                                    }
-                                    <span class="details">Chi tiết</span>
-                                </h4>
-                            </div>
-                            <span class="b_btm"></span>
-                        </a>
-                    </div>
-                }*@
-                <div class="clear"></div>
-            </div>
-            @*<div class="grids_of_3">
-                @for (int i = 3; i < 6; i++)
-                {
-                    var @item = Model[i] as Sach;
-                    var @giacu = @item.Dongia != null ? @item.Dongia.ToString() + "đ" : "";
-                    var @giamoi = @item.Giakm != null ? @item.Giakm.ToString() + "đ" : "";
-                    <div class="grid1_of_3">
-                        <a href="/ChiTietSach/Index?ID=@item.Masach">
-                            <img src="~/Assets/images/@item.Hinhminhhoa" alt="" />
-                            <h3 style=" overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="@item.Tensach">@item.Tensach</h3>
-                            <div class="price">
-                                <h4>
-                                    @if (@giamoi != "")
-                                    {
-                                        <span>@giamoi</span>
-                                        <span style="text-decoration: line-through; font-size: 0.8em; margin-left: 5px;">@giacu</span>
-                                    }
-                                    else
-                                    {
-                                        <span>@giacu</span>
-                                    }
-                                    <span class="details">Chi tiết</span>
-                                </h4>
-                            </div>
-                            <span class="b_btm"></span>
-                        </a>
-                    </div>
-                }
-                <div class="clear"></div>
-            </div>*@
+            }
+            <!-- end grids_of_3 -->
         </div>
     </div>
     <script>

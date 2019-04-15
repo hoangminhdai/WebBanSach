@@ -13,7 +13,7 @@ namespace WebBanSach.Controllers
         public ActionResult Index()
         {
             List<Sach> lstSachMoi = db.Saches.Where(item => item.Ngaycapnhat == new DateTime(2019, 04, 02)).ToList();
-            List<Sach> lstSachNoiBat = db.Saches.Where(item => item.Ngaycapnhat == new DateTime(2019, 04, 03)).ToList();
+            List<Sach> lstSachNoiBat = db.Saches.ToList();
 
             ViewBag.ListSachMoi = lstSachMoi;
             return View(lstSachNoiBat);

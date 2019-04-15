@@ -4,26 +4,24 @@
     Layout = "~/Areas/AdminSite/Views/Shared/AdminLayout.cshtml";
 }
 @using WebBanSach.Models.EF
-@model PagedList.IPagedList<Sach>
-@using PagedList.Mvc;
+@model IEnumerable<Sach>
 <div class="container">
     <div class="row">
         <div class="animated fadeIn">
             <div class="row">
                 <div class="card-header col-sm-11">
-                    <form class="form-inline my-2 my-lg-0 ">
-                        <input class="form-control mr-sm-2 col-sm-2" type="text" placeholder="Tên sách">
-                        <input class="form-control mr-sm-2 col-sm-2" type="text" placeholder="Tên tác giả">
-                        <div class="form-group col-sm-2">
+                    <form class="form-inline my-2 my-lg-0 " method="post" action="@Url.Action("TimKiem","AdminQuanLySach")">
+                        <input class="form-control mr-sm-2 col-sm-2" name="TenSach" type="text" placeholder="Tên sách">
+                        @*<div class="form-group col-sm-2">
                             <select class="form-control col-sm-12">
                                 <option>Loại sách</option>
                                 <option>Sách giáo khoa</option>
                                 <option>Truyện tranh</option>
                                 <option>Tiểu thuyêt</option>
                             </select>
-                        </div>
+                        </div>*@
 
-                        <button type="button" class="btn btn-dark">Tìm kiếm</button>
+                        <button type="submit" class="btn btn-dark">Tìm kiếm</button>
                     </form>
                 </div>
                 <div class="card-header col-sm-1 btn-add">
@@ -84,14 +82,14 @@
                                 }
                             </tbody>
                         </table>
-                        <nav aria-label="Page navigation example">
+                        @*<nav aria-label="Page navigation example">
                             @Html.PagedListPager(
                                                  Model,
                                                  page => Url.Action("TatCaSach", new { page, @class = "pagination" }),
                                                  new PagedListRenderOptions() {
                                                      LiElementClasses = new string[] { "page-item" }
                                                  })
-                        </nav>
+                        </nav>*@
                     </div>
 
                 </div>

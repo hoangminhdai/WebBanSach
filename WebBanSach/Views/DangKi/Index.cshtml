@@ -40,25 +40,51 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Tạo tài khoản mới!</h1>
                             </div>
-                            <form class="user" method="post" action="@Url.Action("postSignUp","DangKi")">
+                            <div class="text-center" style="margin: 20px;">
+                                <span class="alert alert-danger" id="formValidation"></span>
+                            </div>
+                            <form class="user">
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" name="HoTen" placeholder="Họ và tên">
+                                    <input type="text" class="form-control form-control-user" name="Hotenkh" placeholder="Họ và tên (*)">
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" name="Email"
-                                           placeholder="Email">
+                                    <input type="text" class="form-control form-control-user" name="Diachikh" placeholder="Địa chỉ (*)">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user" 
-                                               placeholder="Mật khẩu" name="MatKhau">
+                                        <input type="date" class="form-control form-control-user" placeholder="Ngày sinh" name="Ngaysinh">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user" name="NhapLaiMatKhau"
-                                               placeholder="Xác nhận mật khẩu">
+                                        <input type="text" class="form-control form-control-user" name="Dienthoaikh" placeholder="Số điện thoại">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-user btn-block">
+                                <div class="form-group row">
+                                    <div class="col-sm-3">
+                                        <label style="display: flex;">
+                                            <input type="radio"  class="form-control form-control-user" name="Gioitinh" value="false" checked> Nam
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label style="display: flex;">
+                                            <input type="radio" class="form-control form-control-user" name="Gioitinh" value="true"> Nữ
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-user" name="Email" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" name="Tendn" placeholder="Tên đăng nhập (*)">
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" class="form-control form-control-user" placeholder="Mật khẩu (*)" name="Matkhau">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control form-control-user" name="XacNhanMatKhau" placeholder="Xác nhận mật khẩu (*)">
+                                    </div>
+                                </div>
+                                <button id="btnTaoTaiKhoan" type="button" class="btn btn-primary btn-user btn-block">
                                     Tạo tài khoản
                                 </button>
                                 <hr>
@@ -93,6 +119,62 @@
 
     <!-- Custom scripts for all pages-->
     <script src="~/Assets/js/sb-admin-2.min.js"></script>
+
+    <script>
+        $('#formValidation').hide()
+        $('#btnTaoTaiKhoan').click(() => {
+            let messageErr = ''
+            let data = {}
+
+            data.HoTenKh = $('input[name="Hotenkh"]').val()
+            data.DiaChiKh = $('input[name="Diachikh"]').val()
+            data.DienThoaiKh = $('input[name="Dienthoaikh"]').val()
+            data.NgaySinh = $('input[name="Ngaysinh"]').val()
+            data.Gioitinh = $('input[name="Gioitinh"]:checked').val()
+            data.Email = $('input[name="Email"]').val()
+            data.Tendn = $('input[name="Tendn"]').val()
+            data.Matkhau = $('input[name="Matkhau"]').val()
+            data.XacNhanMatKhau = $('input[name="XacNhanMatKhau"]').val()
+
+            if (!data.HoTenKh) {
+                messageErr = 'Bạn chưa nhập họ tên'
+            } else if (!data.DiaChiKh) {
+                messageErr = 'Bạn chưa nhập địa chỉ'
+            } else if (!data.Tendn) {
+                messageErr = 'Bạn chưa nhập tên đăng nhập'
+            } else if (!data.Matkhau) {
+                messageErr = 'Bạn chưa nhập mật khẩu'
+            } else if (data.Matkhau !== data.XacNhanMatKhau) {
+                messageErr = 'Xác nhận mật khẩu không đúng'
+            }
+
+            if (messageErr) {
+                $('#formValidation').show().text(messageErr)
+                window.scrollTo(0, 0)
+            } else {
+                $.ajax({
+                    url: '/DangKi/ThemTaiKhoan',
+                    data: { user: data },
+                    method: 'POST',
+                    dataType: 'text',
+                    success: function (response) {
+                        response = JSON.parse(response)
+                        if (response.status === true) {
+                            $(location).attr("href", '/Home/Index')
+                        } else {
+                            alert('Tạo tài khoản thất bại')
+                        }
+                    }
+                })
+            }
+             
+        })
+
+        const validateForm = data => {
+            
+        }
+
+    </script>
 
 </body>
 

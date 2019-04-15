@@ -6,21 +6,27 @@ using System.Web;
 using System.Web.Mvc;
 using WebBanSach.Models.EF;
 using PagedList;
+using WebBanSach.Models.Common;
+
 namespace WebBanSach.Areas.AdminSite.Controllers
 {
     public class AdminQuanLySachController : Controller
     {
         QuanLyBanSachDbContext db = new QuanLyBanSachDbContext();
-
         // GET: AdminSite/AdminQuanLySach
-        public ActionResult TatCaSach( int page = 1, int pageSize = 10)
+        [HasCredential(Quyen = 1)]
+        public ActionResult TatCaSach()
         {
+<<<<<<< HEAD
             if(Session["ADMIN_SESSION"]!= null)
             {
+=======
+>>>>>>> 06c00e65d6b5c922b5e25db1c8fb3e6c32ac9cf8
                 var TatCaSach = db.Saches.Join(db.Nhaxuatbans, sach => sach.Manxb, nxb => nxb.Manxb, (sach, nxb) => sach)
                                           .Join(db.Chudes, sach => sach.Macd, chude => chude.Macd, (sach, chude) => sach)
                                           .Join(db.Tacgias, sach => sach.Matacgia, tacgia => tacgia.Matacgia, (sach, tacgia) => sach)
                                           .OrderByDescending(sach => sach.Masach)
+<<<<<<< HEAD
                                           .ToPagedList(page, pageSize);
                 //List<Sach> TatCaSach = db.Saches.ToList();
                 //ViewBag.TatCaSach = TatCaSach;
@@ -31,11 +37,22 @@ namespace WebBanSach.Areas.AdminSite.Controllers
                 return RedirectToAction("Index", "AdminDangNhap");
             }
 
+=======
+                                          .ToList();
+                //List<Sach> TatCaSach = db.Saches.ToList();
+                //ViewBag.TatCaSach = TatCaSach;
+                return View(TatCaSach);
+>>>>>>> 06c00e65d6b5c922b5e25db1c8fb3e6c32ac9cf8
         }
+        [HasCredential(Quyen = 1)]
         public ActionResult ThemSach()
         {
+<<<<<<< HEAD
             if (Session["ADMIN_SESSION"] != null)
             {
+=======
+
+>>>>>>> 06c00e65d6b5c922b5e25db1c8fb3e6c32ac9cf8
                 var TatCaChuDe = db.Chudes.ToList();
                 var TatCaTacGia = db.Tacgias.ToList();
                 var TatCaNXB = db.Nhaxuatbans.ToList();
@@ -43,13 +60,17 @@ namespace WebBanSach.Areas.AdminSite.Controllers
                 ViewBag.TatCaTacGia = TatCaTacGia;
                 ViewBag.TatCaNXB = TatCaNXB;
                 return View();
+<<<<<<< HEAD
             }
             else
             {
                 return RedirectToAction("Index", "AdminDangNhap");
             }
+=======
+>>>>>>> 06c00e65d6b5c922b5e25db1c8fb3e6c32ac9cf8
         }
         [HttpPost]
+        [HasCredential(Quyen = 1)]
         public ActionResult ThemSach(Sach sach, HttpPostedFileBase Hinhminhhoa)
         {
             if (ModelState.IsValid)
@@ -66,6 +87,7 @@ namespace WebBanSach.Areas.AdminSite.Controllers
                 {
                     sach.Hinhminhhoa = "400x400.PNG";
                 }
+                sach.Ngaycapnhat = DateTime.Now;
                 db.Saches.Add(sach);
                 db.SaveChanges();
                 return RedirectToAction("TatCaSach");
@@ -79,6 +101,7 @@ namespace WebBanSach.Areas.AdminSite.Controllers
 
             
         }
+        [HasCredential(Quyen = 1)]
         public ActionResult SuaSach(int MaSach)
         {
             var TatCaChuDe = db.Chudes.ToList();
@@ -101,6 +124,7 @@ namespace WebBanSach.Areas.AdminSite.Controllers
             return View(sach);
         }
         [HttpPost]
+        [HasCredential(Quyen = 1)]
         public ActionResult SuaSach(Sach sach, HttpPostedFileBase Hinhminhhoa)
         {
 
@@ -112,6 +136,7 @@ namespace WebBanSach.Areas.AdminSite.Controllers
                 Hinhminhhoa.SaveAs(DuongDan);
             }
             sach.Donvitinh = "VNĐ";
+            sach.Ngaycapnhat = DateTime.Now; 
             var sachcu = db.Saches.Find(sach.Masach);
             db.Entry(sachcu).CurrentValues.SetValues(sach);
             db.SaveChanges();
@@ -119,6 +144,7 @@ namespace WebBanSach.Areas.AdminSite.Controllers
 
         }
         [HttpPost]
+        [HasCredential(Quyen = 1)]
         public JsonResult XoaSach(int MaSach)
         {
             try
@@ -133,6 +159,11 @@ namespace WebBanSach.Areas.AdminSite.Controllers
                 return Json(new { status = false });
             }
 
+        }
+        public ActionResult TimKiem(string TenSach)
+        {
+            List<Sach> lstSach = db.Saches.Where(x => x.Tensach.Contains(TenSach)).ToList();
+            return View("TatCaSach", lstSach);
         }
     }
 }

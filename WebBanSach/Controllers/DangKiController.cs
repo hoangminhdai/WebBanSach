@@ -9,21 +9,34 @@ namespace WebBanSach.Controllers
 {
     public class DangKiController : Controller
     {
+        QuanLyBanSachDbContext db = new QuanLyBanSachDbContext();
         // GET: DangKi
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult postSignUp(string HoTen, string Email, string MatKhau)
+        public JsonResult ThemTaiKhoan(Khachhang user)
         {
-            List<Khachhang> DanhSachKhachHang = new List<Khachhang>();
-            Khachhang kh = new Khachhang();
-            kh.Hotenkh = HoTen;
-            kh.Email = Email;
-            kh.Matkhau = MatKhau;
-            DanhSachKhachHang.Add(kh);
-            Session["user"] = kh;
-            return RedirectToAction("Index", "DangNhap");
+            try
+            {
+                user.Quyen = 2;
+                db.Khachhangs.Add(user);
+                db.SaveChanges();
+                
+                if (Session["USER_SESSION"] == null)
+                {
+                    Session.Add("USER_SESSION", user);
+                }
+                else
+                {
+                    Session["USER_SESSION"] = user;
+                }
+                return Json(new { status = true });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = false });
+            }
         }
     }
 }

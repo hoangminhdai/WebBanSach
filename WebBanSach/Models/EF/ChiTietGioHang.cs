@@ -9,8 +9,7 @@ namespace WebBanSach.Models.EF
     [Table("ChiTietGioHang")]
     public partial class ChiTietGioHang
     {
-        [Key]
-        public int ChitiethiohangID { get; set; }
+        public int ChitietgiohangID { get; set; }
 
         public int? GiohangkhID { get; set; }
 
@@ -18,7 +17,7 @@ namespace WebBanSach.Models.EF
 
         public int? Soluong { get; set; }
 
-        public int? Thanhtien { get; set; }
+        public decimal? Thanhtien { get; set; }
 
         public virtual Giohangkh Giohangkh { get; set; }
 
