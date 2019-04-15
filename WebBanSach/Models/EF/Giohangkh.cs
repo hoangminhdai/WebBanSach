@@ -22,7 +22,7 @@ namespace WebBanSach.Models.EF
         [Column(TypeName = "smalldatetime")]
         public DateTime? Ngaymua { get; set; }
 
-        public int? Tongtien { get; set; }
+        public decimal? Tongtien { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietGioHang> ChiTietGioHangs { get; set; }

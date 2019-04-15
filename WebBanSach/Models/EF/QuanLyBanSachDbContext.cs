@@ -27,9 +27,29 @@ namespace WebBanSach.Models.EF
                 .Property(e => e.Sdt)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<ChiTietGioHang>()
+                .Property(e => e.Thanhtien)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<Chude>()
+                .Property(e => e.Key)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Giohangkh>()
+                .Property(e => e.Tongtien)
+                .HasPrecision(18, 0);
+
             modelBuilder.Entity<Khachhang>()
                 .Property(e => e.Dienthoaikh)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Sach>()
+                .Property(e => e.Dongia)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<Sach>()
+                .Property(e => e.Giakm)
+                .HasPrecision(18, 0);
         }
     }
 }
