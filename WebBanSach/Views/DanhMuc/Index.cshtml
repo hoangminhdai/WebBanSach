@@ -19,25 +19,34 @@
                             var lstDanhMuc = ViewBag.ListDanhMuc as IEnumerable<Chude>;
                             foreach (var item in lstDanhMuc)
                             {
-                            <li><span class="filter" data-filter="@item.Key">@item.Tenchude</span></li>
+                                <li><span class="filter" data-filter="@item.Key">@item.Tenchude</span></li>
                             }
                         }
                     </ul>
                     <div id="portfoliolist">
                         @foreach (Sach item in Model)
                         {
-                            var @donGia = @item.Dongia + "đ";
-                            var @giaKm = @item.Giakm + "đ";
-                            <div class="portfolio @item.Chude.Key" data-cat="@item.Chude.Key">
-                                <div class="portfolio-wrapper">
-                                    <a href="/ChiTietSach/Index">
-                                        <img src="~/Assets/images/books/@item.Hinhminhhoa" alt="Image 2" />
+                            var @giacu = @item.Dongia != null ? item.Dongia.ToString() + "đ" : "";
+                            var @giamoi = @item.Giakm != null ? item.Giakm.ToString() + "đ" : "";
+                            <div class="portfolio @item.Chude.Key" style="height: 490px;" data-cat="@item.Chude.Key">
+                                <div class="portfolio-wrapper" title="@item.Tensach">
+                                    <a href="/ChiTietSach/Index?ID=@item.Masach">
+                                        <img src="~/Assets/images/books/@item.Hinhminhhoa"style="width: 240px; height: 360px;" alt="Image 2" />
                                     </a>
-                                    <div class="price">
-                                        <h3>@item.Tensach</h3>
-                                        <h4>
-                                            <span>@giaKm</span>
-                                            <span class="sale">@donGia</span>
+                                    <div class="price" style="text-align: center;">
+                                        <h3 style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-height: 27px;">@item.Tensach</h3>
+                                        <h4 style="display: flex; align-items: center;">
+                                            @if (@giamoi != "")
+                                            {
+                                                <div style="width: 40%;">
+                                                    <span>@giamoi</span>
+                                                    <span class="sale">@giacu</span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <span>@giacu</span>
+                                            }
                                             <span class="details">Chi tiết</span>
                                         </h4>
                                     </div>

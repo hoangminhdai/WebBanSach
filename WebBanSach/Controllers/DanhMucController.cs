@@ -22,8 +22,8 @@ namespace WebBanSach.Controllers
         [ChildActionOnly]
         public ActionResult SachLienQuan()
         {
-            var listSachLienQuan = db.Saches.Take(5).ToList();
-            return PartialView("_SanPhamLienQuan", listSachLienQuan);
+            var listSachLienQuan = db.Saches.Where(item => item.Ngaycapnhat == new DateTime(2019, 04, 03)).Take(5).ToList();
+            return PartialView("~/Views/Shared/_SanPhamLienQuan.cshtml", listSachLienQuan);
         }
     }
 }
