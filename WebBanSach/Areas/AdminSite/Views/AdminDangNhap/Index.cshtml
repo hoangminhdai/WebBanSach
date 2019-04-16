@@ -49,20 +49,20 @@
                         @Html.Hidden("returnUrl", @Request.QueryString)
                         @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                         <div class="form-group">
-                            <label>Địa chỉ email</label>
-                            <input type="email" class="form-control" placeholder="Email" name="Username">
+                            <label>Tên đăng nhập</label>
+                            <input type="text" class="form-control" placeholder="Tên đăng nhập" name="Username">
                         </div>
                         <div class="form-group">
                             <label>Mật khẩu</label>
                             <input type="password" class="form-control" placeholder="Password" name="Password">
                         </div>
                         <div class="checkbox">
-                            <label>
+                            @*<label>
                                 <input type="checkbox"> Ghi nhớ đăng nhập
                             </label>
                             <label class="pull-right">
                                 <a href="forgetPassword.html">Quên mật khẩu?</a>
-                            </label>
+                            </label>*@
                             <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Đăng nhập</button>
                     </form>
                 </div>

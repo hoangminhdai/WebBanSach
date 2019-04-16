@@ -4,21 +4,21 @@
     Layout = "~/Areas/AdminSite/Views/Shared/AdminLayout.cshtml";
 }
 @using WebBanSach.Models.EF
-@model PagedList.IPagedList<Khachhang>
+@model IEnumerable<Khachhang>
 @using PagedList.Mvc;
 <div class="container">
     <div class="row">
         <div class="animated fadeIn">
             <div class="row">
-                <div class="card-header col-sm-11">
+                <div class="card-header col-sm-12">
                     <form class="form-inline my-2 my-lg-0 ">
                         <input class="form-control mr-sm-2 col-sm-4" type="text" placeholder="Tên người dùng">
                         <button type="button" class="btn btn-dark">Tìm kiếm</button>
                     </form>
                 </div>
-                <div class="card-header col-sm-1 btn-add">
+                @*<div class="card-header col-sm-1 btn-add">
                     <a class="btn btn-success" href="@Url.Action("ThemKhachHang","AdminQuanLiKhachHang")"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                </div>
+                </div>*@
                 <div class="col-md-12">
                     <div class="table-responsive">
                         <table id="mytable" class="table table-bordred table-striped">
@@ -31,23 +31,23 @@
                             <th>Số điện thoại</th>
                             <th>Địa chỉ</th>
                             <th>Quyền</th>
-                            <th>Sửa</th>
-                            <th>Xóa</th>
+                            @*<th>Sửa</th>
+                            <th>Xóa</th>*@
                             </thead>
                             <tbody>
                                 @foreach (var kh in (@Model as IEnumerable<Khachhang>))
                                 {
-                                    var gioitinh = @kh.Gioitinh == true ? "Nam" : "Nữ";
+                                    var gioitinh = @kh.Gioitinh == true ? "Nữ" : "Nam";
                                     var quyen = @kh.Quyen == 1 ? "Admin" : "Khách hàng";
                                 <tr>
                                     <td>@kh.Hotenkh</td>
                                     <td>@kh.Email</td>
-                                    <td>@kh.Ngaysinh</td>
+                                    <td>@Convert.ToDateTime(@kh.Ngaysinh).ToShortDateString()</td>
                                     <td>@gioitinh</td>
                                     <td>@kh.Dienthoaikh</td>
                                     <td>@kh.Diachikh</td>
                                     <td>@quyen</td>
-                                    <td><p data-placement="top" data-toggle="tooltip" title="Edit"><a href="addUser.html"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit"><span class="fa fa-edit"></span></button></a></p></td>
+                                    @*<td><p data-placement="top" data-toggle="tooltip" title="Edit"><a href="addUser.html"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit"><span class="fa fa-edit"></span></button></a></p></td>
                                     <td>
                                         <p data-placement="top" data-toggle="tooltip" title="Delete">
                                             <a data-title="Delete" id="" data-toggle="modal" data-target="#myModal">
@@ -56,12 +56,12 @@
                                                 </button>
                                             </a>
                                         </p>
-                                    </td>
+                                    </td>*@
                                 </tr>
                                 }
                             </tbody>
                         </table>
-                        <nav aria-label="Page navigation example">
+                        @*<nav aria-label="Page navigation example">
                             @Html.PagedListPager(
                                                  Model,
                                                  page => Url.Action("TatCaKhachHang", new { page, @class = "pagination" }),
@@ -70,7 +70,7 @@
                                                      LiElementClasses = new string[] { "page-item" },
                                                      
                                                  })
-                        </nav>
+                        </nav>*@
                     </div>
 
                 </div>

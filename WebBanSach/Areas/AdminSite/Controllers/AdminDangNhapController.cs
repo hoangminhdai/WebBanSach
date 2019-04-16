@@ -22,7 +22,7 @@ namespace WebBanSach.Areas.AdminSite.Controllers
         {
             if (ModelState.IsValid)
             {
-                Khachhang khachang = db.Khachhangs.SingleOrDefault(kh => kh.Email == user.Username && kh.Matkhau == user.Password);
+                Khachhang khachang = db.Khachhangs.SingleOrDefault(kh => kh.Tendn == user.Username && kh.Matkhau == user.Password);
                 if (khachang != null && khachang.Quyen == 1)
                 {
                     Session.Add("ADMIN_SESSION", khachang);

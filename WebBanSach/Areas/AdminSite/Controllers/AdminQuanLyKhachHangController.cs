@@ -14,11 +14,11 @@ namespace WebBanSach.Areas.AdminSite.Controllers
         QuanLyBanSachDbContext db = new QuanLyBanSachDbContext();
         // GET: AdminSite/AdminQuanLyKhachHang
         [HasCredential(Quyen = 1)]
-        public ActionResult TatCaKhachHang(int trang = 1)
+        public ActionResult TatCaKhachHang()
         {
             var TatCaKhachHang = db.Khachhangs
                                  .OrderByDescending(kh => kh.Hotenkh)
-                                 .ToPagedList(trang, 10);
+                                 .ToList();
             return View(TatCaKhachHang);
         }
         public ActionResult ThemKhachHang()

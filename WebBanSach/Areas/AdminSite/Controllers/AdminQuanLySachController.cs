@@ -15,13 +15,13 @@ namespace WebBanSach.Areas.AdminSite.Controllers
         QuanLyBanSachDbContext db = new QuanLyBanSachDbContext();
         // GET: AdminSite/AdminQuanLySach
         [HasCredential(Quyen = 1)]
-        public ActionResult TatCaSach( int trang = 1)
+        public ActionResult TatCaSach()
         {
                 var TatCaSach = db.Saches.Join(db.Nhaxuatbans, sach => sach.Manxb, nxb => nxb.Manxb, (sach, nxb) => sach)
                                           .Join(db.Chudes, sach => sach.Macd, chude => chude.Macd, (sach, chude) => sach)
                                           .Join(db.Tacgias, sach => sach.Matacgia, tacgia => tacgia.Matacgia, (sach, tacgia) => sach)
                                           .OrderByDescending(sach => sach.Masach)
-                                          .ToPagedList(trang, 10);
+                                          .ToList();
                 //List<Sach> TatCaSach = db.Saches.ToList();
                 //ViewBag.TatCaSach = TatCaSach;
                 return View(TatCaSach);
@@ -128,6 +128,11 @@ namespace WebBanSach.Areas.AdminSite.Controllers
                 return Json(new { status = false });
             }
 
+        }
+        public ActionResult TimKiem(string TenSach)
+        {
+            List<Sach> lstSach = db.Saches.Where(x => x.Tensach.Contains(TenSach)).ToList();
+            return View("TatCaSach", lstSach);
         }
     }
 }
